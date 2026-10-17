@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google sign-in</title>
+</head>
+
+<body
+    data-social-sign-in-url="<%= betterAuthUrl %>/api/auth/sign-in/social"
+    data-callback-url="<%= callbackURL %>">
+    <p id="status" role="status" aria-live="polite">Redirecting to Google...</p>
+
+    <script>
+        (async () => {
+            const status = document.getElementById("status");
+            const { socialSignInUrl, callbackUrl } = document.body.dataset;
+
+            try {
+                const response = await fetch(socialSignInUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        provider: "google",
+                        callbackURL: callbackUrl
+                    })
+                });
+                const data = await response.json();
+
+                if (!response.ok || typeof data.url !== "string") {
+                    throw new Error(data.message || "Unable to start Google sign-in.");
+                }
+
+                window.location.assign(data.url);
+            } catch (error) {
+                console.error("Google sign-in could not be started:", error);
+                status.textContent = "Unable to start Google sign-in. Check the server configuration and try again.";
+            }
+        })();
+    </script>
+</body>
+
+</html>
