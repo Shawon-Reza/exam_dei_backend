@@ -2,7 +2,9 @@ import { auth } from "../../lib/auth";
 import { env } from "../../config/env";
 import { prisma } from "../../lib/prisma";
 import { tokenUtils } from "../utils/tokens";
-import { type } from './../../generated/prisma/models';
+ 
+ 
+ 
 
 type AuthUser = NonNullable<Awaited<ReturnType<typeof auth.api.getSession>>>["user"];
 
