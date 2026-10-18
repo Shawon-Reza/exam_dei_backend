@@ -11,8 +11,18 @@ authRoutes.post("/login", zodValidationFN(loginSchema), authControllers.emailLog
 authRoutes.post("/register", zodValidationFN(registerSchema), authControllers.emailRegister);
 
 authRoutes.get("/google-login", authControllers.googleLogin);
-authRoutes.post("/google-login", authControllers.googleLoginPost);
-
+// authRoutes.post("/google-login", authControllers.googleLoginPost);
 authRoutes.get("/google-login/success", authControllers.googleLoginSuccess);
+
+
 authRoutes.post("/logout", authControllers.logout);
+
+
+
+authRoutes.post("/request-password-reset", authControllers.resetPasswordRequest);
+authRoutes.post("/reset-password", authControllers.resetPassword);
+
+
+authRoutes.post("/check-verification-otp", authControllers.checkVerificationOTP);
+
 authRoutes.post("/otp-verification", authControllers.emailOTPVerification);

@@ -34,8 +34,8 @@ export const auth = betterAuth({
     plugins: [
         bearer(),
         emailOTP({
-            otpLength: 6,
-            expiresIn: 120, // 120 seconds
+            otpLength: 4,
+            expiresIn: 300, // 300 seconds
             allowedAttempts: 1,
             overrideDefaultEmailVerification: true,
 

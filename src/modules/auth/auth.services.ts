@@ -2,6 +2,7 @@ import { auth } from "../../lib/auth";
 import { env } from "../../config/env";
 import { prisma } from "../../lib/prisma";
 import { tokenUtils } from "../utils/tokens";
+import { type } from './../../generated/prisma/models';
 
 type AuthUser = NonNullable<Awaited<ReturnType<typeof auth.api.getSession>>>["user"];
 
@@ -120,11 +121,61 @@ const googleSignInSuccess = (user: AuthUser) => {
     };
 }
 
+const resetPasswordRequest = async (payload: Record<string, unknown>) => {
+    const { email } = payload;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            email: email as string,
+        },
+    });
+    if (!user) {
+        throw new Error("No account found with this email address");
+    }
+
+    const data = await auth.api.requestPasswordResetEmailOTP({
+        body: {
+            email: email as string, // required, Email address to send the OTP.
+        },
+    });
+    return data;
+}
+
+const checkVerificationOTP = async (payload: Record<string, unknown>) => {
+    const { email, otp, type } = payload;
+
+    const data = await auth.api.checkVerificationOTP({
+        body: {
+            email: email as string, // required, Email address to send the OTP.
+            type: type as "sign-in" | "email-verification" | "forget-password" | "change-email", // required, Type of the OTP.
+            otp: otp as string, // required, OTP sent to the email.
+        },
+    });
+
+    return data;
+}
+const resetPassword = async (payload: Record<string, unknown>) => {
+    const { email, otp, password } = payload;
+    const data = await auth.api.resetPasswordEmailOTP({
+        body: {
+            email: email as string, // required, Email address to reset the password.
+            otp: otp as string, // required, OTP sent to the email.
+            password: password as string, // required, New password.
+        },
+    });
+
+    return data;
+}
+
+
 
 export const authServices = {
     emailLogin,
     emailRegister,
     googleSignInSuccess,
     logout,
-    emailOTPVerification
+    emailOTPVerification,
+    resetPasswordRequest,
+    checkVerificationOTP,
+    resetPassword
 }

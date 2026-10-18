@@ -141,7 +141,7 @@ const googleLoginSuccess = catchAsyncError(
         }
 
         const result = authServices.googleSignInSuccess(session.user);
-        
+
         tokenUtils.setAccessTokenCookie(res, "accessToken", result.accessToken);
         tokenUtils.setRefreshTokenCookie(res, "refreshToken", result.refreshToken);
 
@@ -149,7 +149,45 @@ const googleLoginSuccess = catchAsyncError(
     }
 )
 
+const resetPasswordRequest = catchAsyncError(
+    async (req: Request, res: Response) => {
+        const result = await authServices.resetPasswordRequest(req.body);
 
+        res.status(200).json({
+            status_code: status.OK,
+            success: true,
+            message: "Password reset request successful",
+            data: result
+        })
+    }
+);
+
+const checkVerificationOTP = catchAsyncError(
+    async (req: Request, res: Response) => {
+        const result = await authServices.checkVerificationOTP(req.body);
+
+        res.status(200).json({
+            status_code: status.OK,
+            success: true,
+            message: "Verification OTP check successful",
+            data: result
+        }
+        );
+    }
+);
+
+const resetPassword = catchAsyncError(
+    async (req: Request, res: Response) => {
+        const result = await authServices.resetPassword(req.body);
+
+        res.status(200).json({
+            status_code: status.OK,
+            success: true,
+            message: "Password reset successful",
+            data: result
+        }
+        );
+    });
 
 
 export const authControllers = {
@@ -159,5 +197,8 @@ export const authControllers = {
     googleLoginPost,
     googleLoginSuccess,
     logout,
-    emailOTPVerification
+    emailOTPVerification,
+    resetPasswordRequest,
+    checkVerificationOTP,
+    resetPassword
 }
