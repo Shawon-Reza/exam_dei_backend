@@ -1,0 +1,53 @@
+
+model Subject {
+    id   String @id @default(cuid())
+    slug String @unique
+
+    name       String
+    banglaName String?
+
+    description String?
+    icon        String?
+
+    sortOrder Int     @default(autoincrement())
+
+    isActive  Boolean @default(true)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    topics Topic[]
+    //   questions   Question[]
+    //   exams       Exam[]
+    //   notes       Note[]
+    //   progresses  UserProgress[]
+}
+
+model Topic {
+    id String @id @default(cuid())
+
+    slug        String
+    name        String
+    description String?
+    sortOrder   Int     @default(autoincrement())
+    isActive    Boolean @default(true)
+
+    icon      String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    subjectId String
+    subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+    //   questions   Question[]
+    //   notes       Note[]
+    //   exams       Exam[]
+    //   progresses  UserProgress[]
+
+    @@unique([subjectId, slug])
+    @@index([subjectId])
+}
+
+
+

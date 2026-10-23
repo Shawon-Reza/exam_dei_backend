@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import { bearer, emailOTP } from "better-auth/plugins";
-import { sendEmail } from "../modules/utils/email";
+import { sendEmail } from "../utils/email";
 import { env } from "../config/env";
 
 export const auth = betterAuth({

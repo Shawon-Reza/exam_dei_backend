@@ -1,16 +1,31 @@
 import { auth } from "../../lib/auth";
 import { env } from "../../config/env";
 import { prisma } from "../../lib/prisma";
-import { tokenUtils } from "../utils/tokens";
  
  
+ 
+ 
+ 
+import { tokenUtils } from "../../utils/tokens";
  
 
 type AuthUser = NonNullable<Awaited<ReturnType<typeof auth.api.getSession>>>["user"];
 
 const emailLogin = async (payload: Record<string, unknown>) => {
 
+
     const { email, password, callbackURL, rememberMe } = payload;
+
+    const userExistance = await prisma.user.findUnique({
+        where: {
+            email: email as string
+        }
+    })
+
+    if (!userExistance) {
+        throw new Error("No account found with this email")
+    }
+
     const result = await auth.api.signInEmail({
         body: {
             email: email as string,
@@ -20,12 +35,15 @@ const emailLogin = async (payload: Record<string, unknown>) => {
         },
     });
 
+    console.log(result)
+
     // --------------------- Access Token and Refresh Token Generation ---------------------
     const accessToken = tokenUtils.createAccessToken({
         userId: result.user.id,
         email: result.user.email,
         name: result.user.name,
         role: result.user.role,
+        image: result.user.image,
         needPasswordChange: result.user.needPasswordChange,
 
     });
@@ -34,6 +52,7 @@ const emailLogin = async (payload: Record<string, unknown>) => {
         email: result.user.email,
         name: result.user.name,
         role: result.user.role,
+        image: result.user.image,
         needPasswordChange: result.user.needPasswordChange,
     });
 
@@ -58,7 +77,7 @@ const emailRegister = async (payload: Record<string, unknown>) => {
             name: name as string,
             email: email as string,
             password: password as string,
-            image: image as string || "https://example.com/image.png",
+            image: image as string,
         },
     });
 
@@ -93,6 +112,7 @@ const emailOTPVerification = async (payload: Record<string, unknown>) => {
         email: result.user.email,
         name: result.user.name,
         role: result.user.role,
+        image: result.user.image,
         needPasswordChange: result.user.needPasswordChange,
 
     });
@@ -101,6 +121,7 @@ const emailOTPVerification = async (payload: Record<string, unknown>) => {
         email: result.user.email,
         name: result.user.name,
         role: result.user.role,
+        image: result.user.image,
         needPasswordChange: result.user.needPasswordChange,
     });
 
@@ -169,7 +190,30 @@ const resetPassword = async (payload: Record<string, unknown>) => {
     return data;
 }
 
+const sendVerificationOTP = async (payload) => {
+    const { email } = payload
+    const data = await auth.api.sendVerificationOTP({
+        body: {
+            email: email, // required, Email address to send the OTP.
+            type: "email-verification", // required, Type of the OTP.
+        },
+    });
+    return data
+}
 
+const me = async (payload: { email: string }) => {
+    const { email } = payload;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            email,
+        },
+    });
+
+    console.log(user)
+
+    return user;
+};
 
 export const authServices = {
     emailLogin,
@@ -179,5 +223,7 @@ export const authServices = {
     emailOTPVerification,
     resetPasswordRequest,
     checkVerificationOTP,
-    resetPassword
+    resetPassword,
+    sendVerificationOTP,
+    me
 }

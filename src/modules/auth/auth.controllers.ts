@@ -1,9 +1,9 @@
 import { Request, Response } from "express"
-import { catchAsyncError } from "../Errors/catchAsyncError"
+import { catchAsyncError } from "../../Errors/catchAsyncError"
 import status from "http-status"
 import { authServices } from "./auth.services";
-import { tokenUtils } from "../utils/tokens";
-import { cookiesUtils } from "../utils/cookie";
+import { tokenUtils } from "../../utils/tokens";
+import { cookiesUtils } from "../../utils/cookie";
 import { env } from "../../config/env";
 import { auth } from "../../lib/auth";
 
@@ -65,17 +65,20 @@ const logout = catchAsyncError(
         cookiesUtils.clearCookie(res, "accessToken", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
         });
         cookiesUtils.clearCookie(res, "refreshToken", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
         });
         cookiesUtils.clearCookie(res, "better-auth.session_token", {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none",
+            sameSite: env.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
         });
 
 
@@ -150,7 +153,9 @@ const googleLoginSuccess = catchAsyncError(
 )
 
 const resetPasswordRequest = catchAsyncError(
+
     async (req: Request, res: Response) => {
+        console.log("resetPasswordRequest called")
         const result = await authServices.resetPasswordRequest(req.body);
 
         res.status(200).json({
@@ -189,8 +194,35 @@ const resetPassword = catchAsyncError(
         );
     });
 
+const me = catchAsyncError(
+    async (req: Request, res: Response) => {
+        // const user = req.user;
+        const user = await authServices.me(req.user)
+        console.log("From COntroller",user)
+
+        res.status(200).json({
+            status_code: status.OK,
+            success: true,
+            message: "User retrieved successfully",
+            data: user
+        });
+    }
+);
+const sendVerificationOTP = catchAsyncError(
+    async (req: Request, res: Response) => {
+        const result = await authServices.sendVerificationOTP(req.body)
+
+        res.status(200).json({
+            status_code: status.OK,
+            success: true,
+            message: "Send Otp Successfully",
+            data: result
+        });
+    }
+)
 
 export const authControllers = {
+    me,
     emailLogin,
     emailRegister,
     googleLogin,
@@ -200,5 +232,6 @@ export const authControllers = {
     emailOTPVerification,
     resetPasswordRequest,
     checkVerificationOTP,
-    resetPassword
+    resetPassword,
+    sendVerificationOTP
 }

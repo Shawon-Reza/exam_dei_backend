@@ -15,15 +15,16 @@ model User {
   name          String
   email         String
   emailVerified Boolean   @default(false)
-  image         String?
+  image         String? @default("https://res.cloudinary.com/dbmdhxmtx/image/upload/v1792349936/wired-lineal-21-avatar_dm77ip.gif")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
 
-  role               String?
-  userStatus         String?
-  needPasswordChange Boolean?
+  role               String @default("USER")
+  userStatus         String @default("ACTIVE")
+  needPasswordChange Boolean @default(false)
+  
   deletedAt          DateTime?
 
   @@unique([email])
