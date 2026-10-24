@@ -1,0 +1,22 @@
+model Pdf {
+    id String @id @default(cuid())
+
+    name        String
+    banglaName String?
+    description String?
+
+    url String
+
+    isActive Boolean @default(true)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    topicId String
+    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+    subjectId String 
+    subject   Subject  @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+    @@index([topicId])
+    @@index([name])
+}

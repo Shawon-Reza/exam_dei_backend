@@ -273,6 +273,8 @@ export type TopicWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   subjectId?: Prisma.StringFilter<"Topic"> | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
+  questions?: Prisma.QuestionListRelationFilter
+  pdfs?: Prisma.PdfListRelationFilter
 }
 
 export type TopicOrderByWithRelationInput = {
@@ -289,6 +291,8 @@ export type TopicOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   subjectId?: Prisma.SortOrder
   subject?: Prisma.SubjectOrderByWithRelationInput
+  questions?: Prisma.QuestionOrderByRelationAggregateInput
+  pdfs?: Prisma.PdfOrderByRelationAggregateInput
 }
 
 export type TopicWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +313,8 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   subjectId?: Prisma.StringFilter<"Topic"> | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
+  questions?: Prisma.QuestionListRelationFilter
+  pdfs?: Prisma.PdfListRelationFilter
 }, "id" | "slug" | "subjectId_slug">
 
 export type TopicOrderByWithAggregationInput = {
@@ -362,6 +368,8 @@ export type TopicCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subject: Prisma.SubjectCreateNestedOneWithoutTopicsInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
+  pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateInput = {
@@ -377,6 +385,8 @@ export type TopicUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   subjectId: string
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
+  pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUpdateInput = {
@@ -392,6 +402,8 @@ export type TopicUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subject?: Prisma.SubjectUpdateOneRequiredWithoutTopicsNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
+  pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateInput = {
@@ -407,6 +419,8 @@ export type TopicUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
+  pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateManyInput = {
@@ -451,6 +465,16 @@ export type TopicUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type TopicNullableScalarRelationFilter = {
+  is?: Prisma.TopicWhereInput | null
+  isNot?: Prisma.TopicWhereInput | null
+}
+
+export type TopicScalarRelationFilter = {
+  is?: Prisma.TopicWhereInput
+  isNot?: Prisma.TopicWhereInput
 }
 
 export type TopicListRelationFilter = {
@@ -521,6 +545,36 @@ export type TopicSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
 }
 
+export type TopicCreateNestedOneWithoutQuestionsInput = {
+  create?: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutQuestionsInput
+  connect?: Prisma.TopicWhereUniqueInput
+}
+
+export type TopicUpdateOneWithoutQuestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
+  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutQuestionsInput
+  upsert?: Prisma.TopicUpsertWithoutQuestionsInput
+  disconnect?: Prisma.TopicWhereInput | boolean
+  delete?: Prisma.TopicWhereInput | boolean
+  connect?: Prisma.TopicWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutQuestionsInput, Prisma.TopicUpdateWithoutQuestionsInput>, Prisma.TopicUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type TopicCreateNestedOneWithoutPdfsInput = {
+  create?: Prisma.XOR<Prisma.TopicCreateWithoutPdfsInput, Prisma.TopicUncheckedCreateWithoutPdfsInput>
+  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutPdfsInput
+  connect?: Prisma.TopicWhereUniqueInput
+}
+
+export type TopicUpdateOneRequiredWithoutPdfsNestedInput = {
+  create?: Prisma.XOR<Prisma.TopicCreateWithoutPdfsInput, Prisma.TopicUncheckedCreateWithoutPdfsInput>
+  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutPdfsInput
+  upsert?: Prisma.TopicUpsertWithoutPdfsInput
+  connect?: Prisma.TopicWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutPdfsInput, Prisma.TopicUpdateWithoutPdfsInput>, Prisma.TopicUncheckedUpdateWithoutPdfsInput>
+}
+
 export type TopicCreateNestedManyWithoutSubjectInput = {
   create?: Prisma.XOR<Prisma.TopicCreateWithoutSubjectInput, Prisma.TopicUncheckedCreateWithoutSubjectInput> | Prisma.TopicCreateWithoutSubjectInput[] | Prisma.TopicUncheckedCreateWithoutSubjectInput[]
   connectOrCreate?: Prisma.TopicCreateOrConnectWithoutSubjectInput | Prisma.TopicCreateOrConnectWithoutSubjectInput[]
@@ -563,6 +617,166 @@ export type TopicUncheckedUpdateManyWithoutSubjectNestedInput = {
   deleteMany?: Prisma.TopicScalarWhereInput | Prisma.TopicScalarWhereInput[]
 }
 
+export type TopicCreateWithoutQuestionsInput = {
+  id?: string
+  slug: string
+  name: string
+  banglaName?: string | null
+  searchName?: string | null
+  description?: string | null
+  sortOrder?: number
+  isActive?: boolean
+  icon?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutTopicsInput
+  pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
+}
+
+export type TopicUncheckedCreateWithoutQuestionsInput = {
+  id?: string
+  slug: string
+  name: string
+  banglaName?: string | null
+  searchName?: string | null
+  description?: string | null
+  sortOrder?: number
+  isActive?: boolean
+  icon?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subjectId: string
+  pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
+}
+
+export type TopicCreateOrConnectWithoutQuestionsInput = {
+  where: Prisma.TopicWhereUniqueInput
+  create: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
+}
+
+export type TopicUpsertWithoutQuestionsInput = {
+  update: Prisma.XOR<Prisma.TopicUpdateWithoutQuestionsInput, Prisma.TopicUncheckedUpdateWithoutQuestionsInput>
+  create: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
+  where?: Prisma.TopicWhereInput
+}
+
+export type TopicUpdateToOneWithWhereWithoutQuestionsInput = {
+  where?: Prisma.TopicWhereInput
+  data: Prisma.XOR<Prisma.TopicUpdateWithoutQuestionsInput, Prisma.TopicUncheckedUpdateWithoutQuestionsInput>
+}
+
+export type TopicUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutTopicsNestedInput
+  pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
+}
+
+export type TopicUncheckedUpdateWithoutQuestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
+}
+
+export type TopicCreateWithoutPdfsInput = {
+  id?: string
+  slug: string
+  name: string
+  banglaName?: string | null
+  searchName?: string | null
+  description?: string | null
+  sortOrder?: number
+  isActive?: boolean
+  icon?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subject: Prisma.SubjectCreateNestedOneWithoutTopicsInput
+  questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
+}
+
+export type TopicUncheckedCreateWithoutPdfsInput = {
+  id?: string
+  slug: string
+  name: string
+  banglaName?: string | null
+  searchName?: string | null
+  description?: string | null
+  sortOrder?: number
+  isActive?: boolean
+  icon?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subjectId: string
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
+}
+
+export type TopicCreateOrConnectWithoutPdfsInput = {
+  where: Prisma.TopicWhereUniqueInput
+  create: Prisma.XOR<Prisma.TopicCreateWithoutPdfsInput, Prisma.TopicUncheckedCreateWithoutPdfsInput>
+}
+
+export type TopicUpsertWithoutPdfsInput = {
+  update: Prisma.XOR<Prisma.TopicUpdateWithoutPdfsInput, Prisma.TopicUncheckedUpdateWithoutPdfsInput>
+  create: Prisma.XOR<Prisma.TopicCreateWithoutPdfsInput, Prisma.TopicUncheckedCreateWithoutPdfsInput>
+  where?: Prisma.TopicWhereInput
+}
+
+export type TopicUpdateToOneWithWhereWithoutPdfsInput = {
+  where?: Prisma.TopicWhereInput
+  data: Prisma.XOR<Prisma.TopicUpdateWithoutPdfsInput, Prisma.TopicUncheckedUpdateWithoutPdfsInput>
+}
+
+export type TopicUpdateWithoutPdfsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneRequiredWithoutTopicsNestedInput
+  questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
+}
+
+export type TopicUncheckedUpdateWithoutPdfsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
+}
+
 export type TopicCreateWithoutSubjectInput = {
   id?: string
   slug: string
@@ -575,6 +789,8 @@ export type TopicCreateWithoutSubjectInput = {
   icon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
+  pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutSubjectInput = {
@@ -589,6 +805,8 @@ export type TopicUncheckedCreateWithoutSubjectInput = {
   icon?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
+  pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutSubjectInput = {
@@ -661,6 +879,8 @@ export type TopicUpdateWithoutSubjectInput = {
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
+  pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutSubjectInput = {
@@ -675,6 +895,8 @@ export type TopicUncheckedUpdateWithoutSubjectInput = {
   icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
+  pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateManyWithoutSubjectInput = {
@@ -692,6 +914,44 @@ export type TopicUncheckedUpdateManyWithoutSubjectInput = {
 }
 
 
+/**
+ * Count Type TopicCountOutputType
+ */
+
+export type TopicCountOutputType = {
+  questions: number
+  pdfs: number
+}
+
+export type TopicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  questions?: boolean | TopicCountOutputTypeCountQuestionsArgs
+  pdfs?: boolean | TopicCountOutputTypeCountPdfsArgs
+}
+
+/**
+ * TopicCountOutputType without action
+ */
+export type TopicCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TopicCountOutputType
+   */
+  select?: Prisma.TopicCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * TopicCountOutputType without action
+ */
+export type TopicCountOutputTypeCountQuestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.QuestionWhereInput
+}
+
+/**
+ * TopicCountOutputType without action
+ */
+export type TopicCountOutputTypeCountPdfsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PdfWhereInput
+}
+
 
 export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -707,6 +967,9 @@ export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   updatedAt?: boolean
   subjectId?: boolean
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
+  questions?: boolean | Prisma.Topic$questionsArgs<ExtArgs>
+  pdfs?: boolean | Prisma.Topic$pdfsArgs<ExtArgs>
+  _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topic"]>
 
 export type TopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -759,6 +1022,9 @@ export type TopicSelectScalar = {
 export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "banglaName" | "searchName" | "description" | "sortOrder" | "isActive" | "icon" | "createdAt" | "updatedAt" | "subjectId", ExtArgs["result"]["topic"]>
 export type TopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
+  questions?: boolean | Prisma.Topic$questionsArgs<ExtArgs>
+  pdfs?: boolean | Prisma.Topic$pdfsArgs<ExtArgs>
+  _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TopicIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
@@ -771,6 +1037,8 @@ export type $TopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name: "Topic"
   objects: {
     subject: Prisma.$SubjectPayload<ExtArgs>
+    questions: Prisma.$QuestionPayload<ExtArgs>[]
+    pdfs: Prisma.$PdfPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1180,6 +1448,8 @@ readonly fields: TopicFieldRefs;
 export interface Prisma__TopicClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subject<T extends Prisma.SubjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SubjectDefaultArgs<ExtArgs>>): Prisma.Prisma__SubjectClient<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  questions<T extends Prisma.Topic$questionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pdfs<T extends Prisma.Topic$pdfsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$pdfsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PdfPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1619,6 +1889,54 @@ export type TopicDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Topics to delete.
    */
   limit?: number
+}
+
+/**
+ * Topic.questions
+ */
+export type Topic$questionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Question
+   */
+  select?: Prisma.QuestionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Question
+   */
+  omit?: Prisma.QuestionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.QuestionInclude<ExtArgs> | null
+  where?: Prisma.QuestionWhereInput
+  orderBy?: Prisma.QuestionOrderByWithRelationInput | Prisma.QuestionOrderByWithRelationInput[]
+  cursor?: Prisma.QuestionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.QuestionScalarFieldEnum | Prisma.QuestionScalarFieldEnum[]
+}
+
+/**
+ * Topic.pdfs
+ */
+export type Topic$pdfsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Pdf
+   */
+  select?: Prisma.PdfSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Pdf
+   */
+  omit?: Prisma.PdfOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PdfInclude<ExtArgs> | null
+  where?: Prisma.PdfWhereInput
+  orderBy?: Prisma.PdfOrderByWithRelationInput | Prisma.PdfOrderByWithRelationInput[]
+  cursor?: Prisma.PdfWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PdfScalarFieldEnum | Prisma.PdfScalarFieldEnum[]
 }
 
 /**

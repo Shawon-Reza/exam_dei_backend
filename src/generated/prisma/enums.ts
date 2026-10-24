@@ -9,7 +9,16 @@
 * 🟢 You can import this file directly.
 */
 
+export const QuestionType = {
+  MCQ: 'MCQ'
+} as const
+
+export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ROLE = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+} as const
+
+export type ROLE = (typeof ROLE)[keyof typeof ROLE]

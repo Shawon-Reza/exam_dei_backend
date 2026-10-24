@@ -10,6 +10,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum ROLE {
+  USER
+  ADMIN
+}
+
 model User {
   id            String    @id
   name          String
@@ -21,7 +26,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
-  role               String @default("USER")
+  role               ROLE @default(USER)
   userStatus         String @default("ACTIVE")
   needPasswordChange Boolean @default(false)
   

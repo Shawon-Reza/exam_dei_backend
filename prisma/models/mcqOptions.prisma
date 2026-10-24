@@ -1,0 +1,29 @@
+enum QuestionType {
+    MCQ
+}
+
+model Question {
+    id String @id @default(cuid())
+
+    question   String       @unique @db.Text
+    options    Json
+    type       QuestionType @default(MCQ)
+    difficulty Int          @default(3)
+
+    explanation String? @db.Text
+
+    isActive Boolean @default(true)
+
+    subjectId String
+    topicId   String?
+
+    subject Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict)
+    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: Restrict)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([subjectId, isActive])
+    @@index([topicId, isActive])
+    @@index([difficulty, isActive])
+}

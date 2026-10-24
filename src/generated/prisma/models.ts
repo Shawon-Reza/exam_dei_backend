@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Question'
+export type * from './models/Pdf'
 export type * from './models/Subject'
 export type * from './models/Topic'
 export type * from './models/User'

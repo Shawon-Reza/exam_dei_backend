@@ -8,11 +8,26 @@ import { prisma } from "../../lib/prisma"
 
 const getAllTopics = async (query: any) => {
 
-    const { search } = query
+    const { search, subjectId } = query
 
     console.log("search", search)
 
     const where: Prisma.TopicWhereInput = {};
+
+    const tsubjectexistance = await prisma.subject.findUnique({
+        where: {
+            id: subjectId
+        }
+    })
+
+    if (!tsubjectexistance) {
+        throw new Error("Subject not found")
+    }
+
+    if (subjectId) {
+        where.subjectId = subjectId
+    }
+
 
     if (search) {
         where.OR = [
@@ -89,27 +104,27 @@ const createTopic = async (payload: any, file: Express.Multer.File) => {
 const updateTopicById = async (id: string, payload: any, file: Express.Multer.File) => {
 
     try {
-      console.log("req.body", payload)
-    console.log("req.file", file)
-    const slug = payload.slug ? payload.slug : slugify(payload.name)
+        console.log("req.body", payload)
+        console.log("req.file", file)
+        const slug = payload.slug ? payload.slug : slugify(payload.name)
 
-    const result = await prisma.topic.update({
-        where: {
-            id
-        },
-        data: {
-            slug: slug,
-            subjectId: payload.subjectId,
-            name: payload.name,
-            banglaName: payload.banglaName,
-            searchName: payload.searchName,
-            description: payload.description,
-            sortOrder: payload.sortOrder,
-            isActive: payload.isActive,
-            icon: file?.path
-        }
-    })
-    return result  
+        const result = await prisma.topic.update({
+            where: {
+                id
+            },
+            data: {
+                slug: slug,
+                subjectId: payload.subjectId,
+                name: payload.name,
+                banglaName: payload.banglaName,
+                searchName: payload.searchName,
+                description: payload.description,
+                sortOrder: payload.sortOrder,
+                isActive: payload.isActive,
+                icon: file?.path
+            }
+        })
+        return result
     } catch (error) {
         await cloudinaryDeleteByUrl(file?.path as string)
         throw error
