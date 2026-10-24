@@ -26,8 +26,12 @@ model Subject {
 model Topic {
     id String @id @default(cuid())
 
-    slug        String
+    slug        String @unique
     name        String
+    banglaName  String?
+
+    searchName  String?
+
     description String?
     sortOrder   Int     @default(autoincrement())
     isActive    Boolean @default(true)

@@ -95,6 +95,8 @@ export const TopicScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
   name: 'name',
+  banglaName: 'banglaName',
+  searchName: 'searchName',
   description: 'description',
   sortOrder: 'sortOrder',
   isActive: 'isActive',

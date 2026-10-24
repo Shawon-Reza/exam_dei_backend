@@ -110,6 +110,11 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinaryUploader as any,
 
   params: async (_req, file) => {
+    const folderExtension = _req.originalUrl
+      .split("/")
+      .filter(Boolean)
+      .pop();
+
     const extension = path.extname(file.originalname)
       .slice(1)
       .toLowerCase();
@@ -120,7 +125,7 @@ const storage = new CloudinaryStorage({
     };
 
     const projectName = "ChakriOva";
-    const folder = `${projectName}/${config.folder}`;
+    const folder = `${projectName}/${config.folder}/${folderExtension ?? "general"}`;
     const publicId = generatePublicId(file.originalname);
 
     return {

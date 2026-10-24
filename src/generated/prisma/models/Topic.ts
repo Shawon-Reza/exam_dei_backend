@@ -38,6 +38,8 @@ export type TopicMinAggregateOutputType = {
   id: string | null
   slug: string | null
   name: string | null
+  banglaName: string | null
+  searchName: string | null
   description: string | null
   sortOrder: number | null
   isActive: boolean | null
@@ -51,6 +53,8 @@ export type TopicMaxAggregateOutputType = {
   id: string | null
   slug: string | null
   name: string | null
+  banglaName: string | null
+  searchName: string | null
   description: string | null
   sortOrder: number | null
   isActive: boolean | null
@@ -64,6 +68,8 @@ export type TopicCountAggregateOutputType = {
   id: number
   slug: number
   name: number
+  banglaName: number
+  searchName: number
   description: number
   sortOrder: number
   isActive: number
@@ -87,6 +93,8 @@ export type TopicMinAggregateInputType = {
   id?: true
   slug?: true
   name?: true
+  banglaName?: true
+  searchName?: true
   description?: true
   sortOrder?: true
   isActive?: true
@@ -100,6 +108,8 @@ export type TopicMaxAggregateInputType = {
   id?: true
   slug?: true
   name?: true
+  banglaName?: true
+  searchName?: true
   description?: true
   sortOrder?: true
   isActive?: true
@@ -113,6 +123,8 @@ export type TopicCountAggregateInputType = {
   id?: true
   slug?: true
   name?: true
+  banglaName?: true
+  searchName?: true
   description?: true
   sortOrder?: true
   isActive?: true
@@ -213,6 +225,8 @@ export type TopicGroupByOutputType = {
   id: string
   slug: string
   name: string
+  banglaName: string | null
+  searchName: string | null
   description: string | null
   sortOrder: number
   isActive: boolean
@@ -249,6 +263,8 @@ export type TopicWhereInput = {
   id?: Prisma.StringFilter<"Topic"> | string
   slug?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
+  banglaName?: Prisma.StringNullableFilter<"Topic"> | string | null
+  searchName?: Prisma.StringNullableFilter<"Topic"> | string | null
   description?: Prisma.StringNullableFilter<"Topic"> | string | null
   sortOrder?: Prisma.IntFilter<"Topic"> | number
   isActive?: Prisma.BoolFilter<"Topic"> | boolean
@@ -263,6 +279,8 @@ export type TopicOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  banglaName?: Prisma.SortOrderInput | Prisma.SortOrder
+  searchName?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -275,12 +293,14 @@ export type TopicOrderByWithRelationInput = {
 
 export type TopicWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  slug?: string
   subjectId_slug?: Prisma.TopicSubjectIdSlugCompoundUniqueInput
   AND?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
   OR?: Prisma.TopicWhereInput[]
   NOT?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
-  slug?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
+  banglaName?: Prisma.StringNullableFilter<"Topic"> | string | null
+  searchName?: Prisma.StringNullableFilter<"Topic"> | string | null
   description?: Prisma.StringNullableFilter<"Topic"> | string | null
   sortOrder?: Prisma.IntFilter<"Topic"> | number
   isActive?: Prisma.BoolFilter<"Topic"> | boolean
@@ -289,12 +309,14 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   subjectId?: Prisma.StringFilter<"Topic"> | string
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
-}, "id" | "subjectId_slug">
+}, "id" | "slug" | "subjectId_slug">
 
 export type TopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  banglaName?: Prisma.SortOrderInput | Prisma.SortOrder
+  searchName?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -316,6 +338,8 @@ export type TopicScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   slug?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   name?: Prisma.StringWithAggregatesFilter<"Topic"> | string
+  banglaName?: Prisma.StringNullableWithAggregatesFilter<"Topic"> | string | null
+  searchName?: Prisma.StringNullableWithAggregatesFilter<"Topic"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Topic"> | string | null
   sortOrder?: Prisma.IntWithAggregatesFilter<"Topic"> | number
   isActive?: Prisma.BoolWithAggregatesFilter<"Topic"> | boolean
@@ -329,6 +353,8 @@ export type TopicCreateInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -342,6 +368,8 @@ export type TopicUncheckedCreateInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -355,6 +383,8 @@ export type TopicUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -368,6 +398,8 @@ export type TopicUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -381,6 +413,8 @@ export type TopicCreateManyInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -394,6 +428,8 @@ export type TopicUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -406,6 +442,8 @@ export type TopicUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -434,6 +472,8 @@ export type TopicCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  banglaName?: Prisma.SortOrder
+  searchName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -451,6 +491,8 @@ export type TopicMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  banglaName?: Prisma.SortOrder
+  searchName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -464,6 +506,8 @@ export type TopicMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  banglaName?: Prisma.SortOrder
+  searchName?: Prisma.SortOrder
   description?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
@@ -523,6 +567,8 @@ export type TopicCreateWithoutSubjectInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -535,6 +581,8 @@ export type TopicUncheckedCreateWithoutSubjectInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -576,6 +624,8 @@ export type TopicScalarWhereInput = {
   id?: Prisma.StringFilter<"Topic"> | string
   slug?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
+  banglaName?: Prisma.StringNullableFilter<"Topic"> | string | null
+  searchName?: Prisma.StringNullableFilter<"Topic"> | string | null
   description?: Prisma.StringNullableFilter<"Topic"> | string | null
   sortOrder?: Prisma.IntFilter<"Topic"> | number
   isActive?: Prisma.BoolFilter<"Topic"> | boolean
@@ -589,6 +639,8 @@ export type TopicCreateManySubjectInput = {
   id?: string
   slug: string
   name: string
+  banglaName?: string | null
+  searchName?: string | null
   description?: string | null
   sortOrder?: number
   isActive?: boolean
@@ -601,6 +653,8 @@ export type TopicUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -613,6 +667,8 @@ export type TopicUncheckedUpdateWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -625,6 +681,8 @@ export type TopicUncheckedUpdateManyWithoutSubjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -639,6 +697,8 @@ export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   slug?: boolean
   name?: boolean
+  banglaName?: boolean
+  searchName?: boolean
   description?: boolean
   sortOrder?: boolean
   isActive?: boolean
@@ -653,6 +713,8 @@ export type TopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   slug?: boolean
   name?: boolean
+  banglaName?: boolean
+  searchName?: boolean
   description?: boolean
   sortOrder?: boolean
   isActive?: boolean
@@ -667,6 +729,8 @@ export type TopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   slug?: boolean
   name?: boolean
+  banglaName?: boolean
+  searchName?: boolean
   description?: boolean
   sortOrder?: boolean
   isActive?: boolean
@@ -681,6 +745,8 @@ export type TopicSelectScalar = {
   id?: boolean
   slug?: boolean
   name?: boolean
+  banglaName?: boolean
+  searchName?: boolean
   description?: boolean
   sortOrder?: boolean
   isActive?: boolean
@@ -690,7 +756,7 @@ export type TopicSelectScalar = {
   subjectId?: boolean
 }
 
-export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "sortOrder" | "isActive" | "icon" | "createdAt" | "updatedAt" | "subjectId", ExtArgs["result"]["topic"]>
+export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "banglaName" | "searchName" | "description" | "sortOrder" | "isActive" | "icon" | "createdAt" | "updatedAt" | "subjectId", ExtArgs["result"]["topic"]>
 export type TopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subject?: boolean | Prisma.SubjectDefaultArgs<ExtArgs>
 }
@@ -710,6 +776,8 @@ export type $TopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     slug: string
     name: string
+    banglaName: string | null
+    searchName: string | null
     description: string | null
     sortOrder: number
     isActive: boolean
@@ -1144,6 +1212,8 @@ export interface TopicFieldRefs {
   readonly id: Prisma.FieldRef<"Topic", 'String'>
   readonly slug: Prisma.FieldRef<"Topic", 'String'>
   readonly name: Prisma.FieldRef<"Topic", 'String'>
+  readonly banglaName: Prisma.FieldRef<"Topic", 'String'>
+  readonly searchName: Prisma.FieldRef<"Topic", 'String'>
   readonly description: Prisma.FieldRef<"Topic", 'String'>
   readonly sortOrder: Prisma.FieldRef<"Topic", 'Int'>
   readonly isActive: Prisma.FieldRef<"Topic", 'Boolean'>
