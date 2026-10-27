@@ -38,6 +38,7 @@ const updateQuestionById = catchAsyncError(async (req, res) => {
 const deleteQuestionById = catchAsyncError(async (req, res) => {
     const { id } = req.params
     const result = await questionService.deleteQuestionById(id as string)
+    console.log("From controller deleteQuestionById", req.originalUrl);
     res.status(200).json({
         success: true,
         statusCode: 200,
@@ -46,10 +47,52 @@ const deleteQuestionById = catchAsyncError(async (req, res) => {
     })
 })
 
+
+const assign_to_test = catchAsyncError(async (req, res) => {
+    const result = await questionService.assign_to_test(req.body)
+    res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Questions assigned to test successfully",
+        data: result
+    })
+})
+
+const get_question_assign_to_test = catchAsyncError(async (req, res) => {
+
+    const result = await questionService.get_question_assign_to_test(req.query)
+
+    res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Questions assigned to test fetched successfully",
+        data: result
+    })
+
+})
+
+
+
+const delete_question_assign_to_test = catchAsyncError(async (req, res) => {
+    
+    console.log("Triggered delete_question_assign_to_test controller with query:", req.query);
+
+    const result = await questionService.delete_question_assign_to_test(req.query)
+    res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Questions assigned to test deleted successfully",
+        data: result
+    })
+})
+
 export const questionController = {
     getQuestions,
     createQuestion,
     updateQuestionById,
-    deleteQuestionById
+    deleteQuestionById,
+    assign_to_test,
+    get_question_assign_to_test,
+    delete_question_assign_to_test
 
 }

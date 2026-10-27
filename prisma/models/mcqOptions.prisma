@@ -15,13 +15,15 @@ model Question {
     isActive Boolean @default(true)
 
     subjectId String
-    topicId   String?
+    topicId   String
 
-    subject Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict)
-    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: Restrict)
+    subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    testQuestions TestQuestion[]
 
     @@index([subjectId, isActive])
     @@index([topicId, isActive])

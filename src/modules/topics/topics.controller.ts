@@ -49,7 +49,16 @@ export const deleteTopicById = catchAsyncError(async (req: Request, res: Respons
 })
 
 
-
+const getTopicDeepDetails = catchAsyncError(async (req: Request, res: Response) => {
+    const { topicID } = req.query
+    const result = await topicService.getTopicDeepDetails(topicID as string)
+    res.status(200).json({
+        success: true,
+        statusCode: 200,
+        message: "Topic deep details fetched successfully",
+        data: result
+    })
+})
 
 
 export const topicController = {
@@ -57,4 +66,5 @@ export const topicController = {
     createTopic,
     updateTopicById,
     deleteTopicById,
+    getTopicDeepDetails
 }

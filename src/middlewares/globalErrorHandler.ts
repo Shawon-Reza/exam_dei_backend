@@ -4,6 +4,31 @@ import status from "http-status";
 import { AppError } from "../Errors/AppError";
 import { Prisma } from "../generated/prisma/client";
 
+const ERROR_SENDER = "Global Error Handler";
+
+type ErrorResponseOptions = {
+    type?: string | null;
+    errorCode?: string | null;
+    details?: Record<string, unknown>;
+};
+
+const sendErrorResponse = (
+    res: Response,
+    statusCode: number,
+    message: string,
+    { type = null, errorCode = null, details = {} }: ErrorResponseOptions = {}
+) => {
+    return res.status(statusCode).json({
+        ...details,
+        status: statusCode,
+        success: false,
+        message,
+        sender: ERROR_SENDER,
+        errorCode,
+        type,
+    });
+};
+
 export const globalErrorHandler = (
     err: Error | Prisma.PrismaClientKnownRequestError | Prisma.PrismaClientValidationError | Prisma.PrismaClientInitializationError | Prisma.PrismaClientUnknownRequestError,
     req: Request,
@@ -23,32 +48,28 @@ export const globalErrorHandler = (
 
         // 🔥 UNIQUE CONSTRAINT
         if (code === "P2002") {
-            return res.status(400).json({
-                status: status.BAD_REQUEST,
-                success: false,
+            return sendErrorResponse(res, status.BAD_REQUEST, "Duplicate value (already exists)", {
                 type: code,
-                message: "Duplicate value (already exists)",
-                meta: err.meta,
+                errorCode: code,
+                details: { meta: err.meta },
             });
         }
 
         // 🔥 NOT FOUND
         if (code === "P2025" || code === "P2001") {
-            return res.status(404).json({
-                success: false,
+            return sendErrorResponse(res, status.NOT_FOUND, "Record not found", {
                 type: code,
-                message: "Record not found",
-                meta: err.meta,
+                errorCode: code,
+                details: { meta: err.meta },
             });
         }
 
         // 🔥 FOREIGN KEY / RELATION ERRORS
         if (code === "P2003" || code === "P2014" || code === "P2017") {
-            return res.status(400).json({
-                success: false,
+            return sendErrorResponse(res, status.BAD_REQUEST, "Relation/foreign key constraint failed", {
                 type: code,
-                message: "Relation/foreign key constraint failed",
-                meta: err.meta,
+                errorCode: code,
+                details: { meta: err.meta },
             });
         }
 
@@ -67,11 +88,10 @@ export const globalErrorHandler = (
                 "P2020"
             ].includes(code)
         ) {
-            return res.status(400).json({
-                success: false,
+            return sendErrorResponse(res, status.BAD_REQUEST, "Invalid input data", {
                 type: code,
-                message: "Invalid input data",
-                meta: err.meta,
+                errorCode: code,
+                details: { meta: err.meta },
             });
         }
 
@@ -85,12 +105,16 @@ export const globalErrorHandler = (
                 "P2037"
             ].includes(code)
         ) {
-            return res.status(500).json({
-                success: false,
-                type: code,
-                message: "Database issue (table/column/connection problem)",
-                meta: err.meta,
-            });
+            return sendErrorResponse(
+                res,
+                status.INTERNAL_SERVER_ERROR,
+                "Database issue (table/column/connection problem)",
+                {
+                    type: code,
+                    errorCode: code,
+                    details: { meta: err.meta },
+                }
+            );
         }
 
         // 🔥 TRANSACTION / CONFLICT ERRORS
@@ -102,20 +126,18 @@ export const globalErrorHandler = (
                 "P2029"
             ].includes(code)
         ) {
-            return res.status(500).json({
-                success: false,
+            return sendErrorResponse(res, status.INTERNAL_SERVER_ERROR, "Transaction/DB conflict error", {
                 type: code,
-                message: "Transaction/DB conflict error",
-                meta: err.meta,
+                errorCode: code,
+                details: { meta: err.meta },
             });
         }
 
         // 🔥 DEFAULT PRISMA KNOWN ERROR
-        return res.status(400).json({
-            success: false,
+        return sendErrorResponse(res, status.BAD_REQUEST, err.message, {
             type: code,
-            message: err.message,
-            meta: err.meta,
+            errorCode: code,
+            details: { meta: err.meta },
         });
     }
 
@@ -149,14 +171,14 @@ export const globalErrorHandler = (
             reason = "wrong_type";
         }
         const combinedMessage = `${field} is ${reason}`;
-        return res.status(400).json({
-            status: status.BAD_REQUEST,
-            success: false,
+        return sendErrorResponse(res, status.BAD_REQUEST, message, {
             type: "PRISMA_VALIDATION_ERROR",
-            field,
-            reason,   // 🔥 THIS IS WHAT YOU WANTED
-            message,
-            combinedMessage,
+            errorCode: "PRISMA_VALIDATION_ERROR",
+            details: {
+                field,
+                reason,
+                combinedMessage,
+            },
         });
     }
 
@@ -165,11 +187,9 @@ export const globalErrorHandler = (
     // Covers P1000 - P1017 + P3000 - P3024 (schema engine)
     // =====================================================
     if (err instanceof Prisma.PrismaClientInitializationError) {
-        return res.status(500).json({
-            status: status.INTERNAL_SERVER_ERROR,
-            success: false,
-            type: err.errorCode || "PRISMA_INIT_ERROR",
-            message: err.message,
+        return sendErrorResponse(res, status.INTERNAL_SERVER_ERROR, err.message, {
+            type: "PRISMA_INITIALIZATION_ERROR",
+            errorCode: err.errorCode || "PRISMA_INIT_ERROR",
         });
     }
 
@@ -178,11 +198,8 @@ export const globalErrorHandler = (
     // Covers P6000 - P6010 (Accelerate, engine crash, etc.)
     // =====================================================
     if (err instanceof Prisma.PrismaClientUnknownRequestError) {
-        return res.status(500).json({
-            status: status.INTERNAL_SERVER_ERROR,
-            success: false,
+        return sendErrorResponse(res, status.INTERNAL_SERVER_ERROR, err.message, {
             type: "PRISMA_UNKNOWN_ERROR",
-            message: err.message,
         });
     }
 
@@ -192,33 +209,30 @@ export const globalErrorHandler = (
             .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
             .join(", ");
 
-        return res.status(400).json({
-            status: status.BAD_REQUEST,
-            success: false,
+        return sendErrorResponse(res, status.BAD_REQUEST, message, {
             type: "ZOD_VALIDATION_ERROR",
-            message,
+            errorCode: "ZOD_VALIDATION_ERROR",
+            details: {
+                issues: err.issues,
+            },
         });
     }
 
     if (err instanceof AppError) {
-       
-        return res.status(err.statusCode).json({
-            status: err.statusCode,
-            success: false,
+        return sendErrorResponse(res, err.statusCode, err.message, {
             type: err.type,
-            message: err.message,
-            stack: err.stack,
+            errorCode: err.type,
+            details: {
+                stack: err.stack,
+            },
         });
     }
 
     // =====================================================
     // 🔥 5. NON-PRISMA ERROR (FALLBACK)
     // =====================================================
-    return res.status(500).json({
-        status: status.INTERNAL_SERVER_ERROR,
-        success: false,
+    return sendErrorResponse(res, status.INTERNAL_SERVER_ERROR, err.message || "Something went wrong", {
         type: "INTERNAL_SERVER_ERROR",
-        message: err?.message || "Something went wrong",
     });
 };
 

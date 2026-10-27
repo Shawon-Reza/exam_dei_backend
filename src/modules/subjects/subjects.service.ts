@@ -35,6 +35,7 @@ const createSubject = async (data: any, file?: any) => {
             const slug = slugify(slugSource);
             data.slug = slug;
         }
+        const isActive = data.isActive === "true" || data.isActive === true;
 
         const result = await prisma.subject.create({
             data: {
@@ -43,15 +44,17 @@ const createSubject = async (data: any, file?: any) => {
                 slug: data.slug,
                 icon: file ? file.path : null,
                 description: data.description,
-                sortOrder: data.sortOrder,
-                isActive: data.isActive,
+                sortOrder: parseInt(data.sortOrder),
+                isActive: isActive,
             },
         });
         return result;
 
     } catch (error) {
 
-        await cloudinaryDeleteByUrl(file?.path);
+        if(file?.path){
+            await cloudinaryDeleteByUrl(file.path);
+        }
 
 
         const message =
@@ -69,19 +72,24 @@ const updateSubjectByID = async (id: string, data: any, file?: any) => {
     try {
         console.log("Updating subject with ID:", id, "data:", data, "file:", file);
 
+        const isActive = data.isActive === "true" || data.isActive === true;
+        data.isActive = isActive;
+
+        const payload: any = {}
+        if (data.name) payload['name'] = data.name;
+        if (data.banglaName) payload['banglaName'] = data.banglaName;
+        if (data.slug) payload['slug'] = data.slug;
+        if (data.description) payload['description'] = data.description;
+        if (data.sortOrder) payload['sortOrder'] = parseInt(data.sortOrder);
+        if (data.isActive !== undefined) payload['isActive'] = data.isActive=== "true" || data.
+        isActive === true;
+        if (file) payload['icon'] = file.path;
+
         const result = await prisma.subject.update({
             where: {
                 id: id,
             },
-            data: {
-                name: data.name,
-                banglaName: data.banglaName,
-                slug: data.slug,
-                icon: file ? file.path : null,
-                description: data.description,
-                sortOrder: data.sortOrder,
-                isActive: data.isActive,
-            },
+            data:payload
         });
         console.log("Updated subject result:", result);
 
@@ -97,6 +105,18 @@ const updateSubjectByID = async (id: string, data: any, file?: any) => {
 }
 
 const deleteSubjectByID = async (id: string) => {
+
+
+    const existance = await prisma.subject.findUnique({
+        where: {
+            id: id,
+        },
+    });
+
+    if (existance?.icon) {
+        await cloudinaryDeleteByUrl(existance.icon);
+    }
+
     const result = await prisma.subject.delete({
         where: {
             id: id,

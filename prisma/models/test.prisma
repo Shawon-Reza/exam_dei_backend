@@ -1,0 +1,34 @@
+model Test {
+    id          String  @id @default(cuid())
+    name        String
+    slug        String  @unique
+    description String?
+
+    duration   Int   @default(30)
+    totalQuestions Int   @default(20)
+
+    isActive Boolean @default(true)
+
+    topicId String
+    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+    testQuestions TestQuestion[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model TestQuestion {
+    id String @id @default(cuid())
+
+    // marks Float @default(1)
+
+    testId String
+    test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+    questionId String
+    question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+    @@unique([testId, questionId])
+    @@index([questionId])
+}

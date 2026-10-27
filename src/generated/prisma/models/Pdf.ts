@@ -243,6 +243,7 @@ export type PdfOrderByWithRelationInput = {
 
 export type PdfWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name_banglaName?: Prisma.PdfNameBanglaNameCompoundUniqueInput
   AND?: Prisma.PdfWhereInput | Prisma.PdfWhereInput[]
   OR?: Prisma.PdfWhereInput[]
   NOT?: Prisma.PdfWhereInput | Prisma.PdfWhereInput[]
@@ -257,7 +258,7 @@ export type PdfWhereUniqueInput = Prisma.AtLeast<{
   subjectId?: Prisma.StringFilter<"Pdf"> | string
   topic?: Prisma.XOR<Prisma.TopicScalarRelationFilter, Prisma.TopicWhereInput>
   subject?: Prisma.XOR<Prisma.SubjectScalarRelationFilter, Prisma.SubjectWhereInput>
-}, "id">
+}, "id" | "name_banglaName">
 
 export type PdfOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -378,6 +379,11 @@ export type PdfUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   subjectId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type PdfNameBanglaNameCompoundUniqueInput = {
+  name: string
+  banglaName: string
 }
 
 export type PdfCountOrderByAggregateInput = {

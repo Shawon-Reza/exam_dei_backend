@@ -62,6 +62,16 @@ export type Subject = Prisma.SubjectModel
  */
 export type Topic = Prisma.TopicModel
 /**
+ * Model Test
+ * 
+ */
+export type Test = Prisma.TestModel
+/**
+ * Model TestQuestion
+ * 
+ */
+export type TestQuestion = Prisma.TestQuestionModel
+/**
  * Model User
  * 
  */

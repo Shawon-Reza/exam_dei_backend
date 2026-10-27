@@ -198,7 +198,7 @@ const me = catchAsyncError(
     async (req: Request, res: Response) => {
         // const user = req.user;
         const user = await authServices.me(req.user)
-        console.log("From COntroller",user)
+        // console.log("From COntroller",user)
 
         res.status(200).json({
             status_code: status.OK,

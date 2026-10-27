@@ -55,6 +55,8 @@ export const ModelName = {
   Pdf: 'Pdf',
   Subject: 'Subject',
   Topic: 'Topic',
+  Test: 'Test',
+  TestQuestion: 'TestQuestion',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -142,6 +144,32 @@ export const TopicScalarFieldEnum = {
 } as const
 
 export type TopicScalarFieldEnum = (typeof TopicScalarFieldEnum)[keyof typeof TopicScalarFieldEnum]
+
+
+export const TestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  description: 'description',
+  duration: 'duration',
+  totalQuestions: 'totalQuestions',
+  isActive: 'isActive',
+  topicId: 'topicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
+
+
+export const TestQuestionScalarFieldEnum = {
+  id: 'id',
+  marks: 'marks',
+  testId: 'testId',
+  questionId: 'questionId'
+} as const
+
+export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[keyof typeof TestQuestionScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

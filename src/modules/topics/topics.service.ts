@@ -61,9 +61,22 @@ const getAllTopics = async (query: any) => {
 
 
     const [resut, totalCount] = await prisma.$transaction([
-        prisma.topic.findMany({
-            where,
-        }),
+        prisma.topic.findMany(
+            {
+                where,
+                include: {
+                    _count: {
+                        select: {
+                            pdfs: true,
+                            questions: true,
+                            tests: true
+                        }
+                    }
+                }
+            }
+
+        ),
+
         prisma.topic.count(
             {
                 where
@@ -78,28 +91,46 @@ const getAllTopics = async (query: any) => {
     }
 }
 
-const createTopic = async (payload: any, file: Express.Multer.File) => {
-    console.log("req.body", payload)
-    console.log("req.file", file)
 
-    const slug = payload.slug ? payload.slug : slugify(payload.name)
 
+const createTopic = async (
+    payload: any,
+    file?: Express.Multer.File
+) => {
+    console.log("req.body", payload);
+    console.log("req.file", file);
+
+    const slug = payload.slug
+        ? payload.slug
+        : slugify(payload.name);
+
+    const sortOrder = Number(payload.sortOrder);
+
+    if (!Number.isInteger(sortOrder)) {
+        throw new Error("sortOrder must be an integer");
+    }
+
+    const isActive =
+        payload.isActive === "true" ||
+        payload.isActive === true;
 
     const result = await prisma.topic.create({
         data: {
-            slug: slug,
+            slug,
             subjectId: payload.subjectId,
             name: payload.name,
             banglaName: payload.banglaName,
             searchName: payload.searchName,
             description: payload.description,
-            sortOrder: payload.sortOrder,
-            isActive: payload.isActive,
-            icon: file?.path
-        }
-    })
-    return result
-}
+            sortOrder,
+            isActive,
+            icon: file?.path ?? null,
+        },
+    });
+
+    return result;
+};
+
 
 const updateTopicById = async (id: string, payload: any, file: Express.Multer.File) => {
 
@@ -119,8 +150,8 @@ const updateTopicById = async (id: string, payload: any, file: Express.Multer.Fi
                 banglaName: payload.banglaName,
                 searchName: payload.searchName,
                 description: payload.description,
-                sortOrder: payload.sortOrder,
-                isActive: payload.isActive,
+                sortOrder: parseInt(payload.sortOrder),
+                isActive: payload.isActive == "true" || payload.isActive === true ? true : false,
                 icon: file?.path
             }
         })
@@ -139,7 +170,22 @@ const deleteTopicById = async (id: string) => {
     return result
 }
 
-
+const getTopicDeepDetails = async (topicID: string) => {
+    console.log("Trying to fetch deep details for topicID:", topicID);
+    const result = await prisma.topic.findUnique({
+        where: {
+            id: topicID
+        },
+        include: {
+            _count: {
+                select: {
+                    pdfs: true
+                }
+            }
+        }
+    })
+    return result
+}
 
 
 
@@ -148,4 +194,5 @@ export const topicService = {
     createTopic,
     updateTopicById,
     deleteTopicById,
+    getTopicDeepDetails
 }

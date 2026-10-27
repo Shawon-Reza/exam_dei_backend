@@ -19,4 +19,5 @@ model Pdf {
 
     @@index([topicId])
     @@index([name])
+    @@unique([name ,banglaName])
 }
