@@ -177,11 +177,9 @@ const getTopicDeepDetails = async (topicID: string) => {
             id: topicID
         },
         include: {
-            _count: {
-                select: {
-                    pdfs: true
-                }
-            }
+            tests: true,
+            notes: true,
+            pdfs: true,
         }
     })
     return result

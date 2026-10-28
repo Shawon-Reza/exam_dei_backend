@@ -20,68 +20,44 @@ export type TestQuestionModel = runtime.Types.Result.DefaultSelection<Prisma.$Te
 
 export type AggregateTestQuestion = {
   _count: TestQuestionCountAggregateOutputType | null
-  _avg: TestQuestionAvgAggregateOutputType | null
-  _sum: TestQuestionSumAggregateOutputType | null
   _min: TestQuestionMinAggregateOutputType | null
   _max: TestQuestionMaxAggregateOutputType | null
 }
 
-export type TestQuestionAvgAggregateOutputType = {
-  marks: number | null
-}
-
-export type TestQuestionSumAggregateOutputType = {
-  marks: number | null
-}
-
 export type TestQuestionMinAggregateOutputType = {
   id: string | null
-  marks: number | null
   testId: string | null
   questionId: string | null
 }
 
 export type TestQuestionMaxAggregateOutputType = {
   id: string | null
-  marks: number | null
   testId: string | null
   questionId: string | null
 }
 
 export type TestQuestionCountAggregateOutputType = {
   id: number
-  marks: number
   testId: number
   questionId: number
   _all: number
 }
 
 
-export type TestQuestionAvgAggregateInputType = {
-  marks?: true
-}
-
-export type TestQuestionSumAggregateInputType = {
-  marks?: true
-}
-
 export type TestQuestionMinAggregateInputType = {
   id?: true
-  marks?: true
   testId?: true
   questionId?: true
 }
 
 export type TestQuestionMaxAggregateInputType = {
   id?: true
-  marks?: true
   testId?: true
   questionId?: true
 }
 
 export type TestQuestionCountAggregateInputType = {
   id?: true
-  marks?: true
   testId?: true
   questionId?: true
   _all?: true
@@ -125,18 +101,6 @@ export type TestQuestionAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: TestQuestionAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: TestQuestionSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: TestQuestionMinAggregateInputType
@@ -167,20 +131,15 @@ export type TestQuestionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   _count?: TestQuestionCountAggregateInputType | true
-  _avg?: TestQuestionAvgAggregateInputType
-  _sum?: TestQuestionSumAggregateInputType
   _min?: TestQuestionMinAggregateInputType
   _max?: TestQuestionMaxAggregateInputType
 }
 
 export type TestQuestionGroupByOutputType = {
   id: string
-  marks: number
   testId: string
   questionId: string
   _count: TestQuestionCountAggregateOutputType | null
-  _avg: TestQuestionAvgAggregateOutputType | null
-  _sum: TestQuestionSumAggregateOutputType | null
   _min: TestQuestionMinAggregateOutputType | null
   _max: TestQuestionMaxAggregateOutputType | null
 }
@@ -205,7 +164,6 @@ export type TestQuestionWhereInput = {
   OR?: Prisma.TestQuestionWhereInput[]
   NOT?: Prisma.TestQuestionWhereInput | Prisma.TestQuestionWhereInput[]
   id?: Prisma.StringFilter<"TestQuestion"> | string
-  marks?: Prisma.FloatFilter<"TestQuestion"> | number
   testId?: Prisma.StringFilter<"TestQuestion"> | string
   questionId?: Prisma.StringFilter<"TestQuestion"> | string
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
@@ -214,7 +172,6 @@ export type TestQuestionWhereInput = {
 
 export type TestQuestionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  marks?: Prisma.SortOrder
   testId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   test?: Prisma.TestOrderByWithRelationInput
@@ -227,7 +184,6 @@ export type TestQuestionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TestQuestionWhereInput | Prisma.TestQuestionWhereInput[]
   OR?: Prisma.TestQuestionWhereInput[]
   NOT?: Prisma.TestQuestionWhereInput | Prisma.TestQuestionWhereInput[]
-  marks?: Prisma.FloatFilter<"TestQuestion"> | number
   testId?: Prisma.StringFilter<"TestQuestion"> | string
   questionId?: Prisma.StringFilter<"TestQuestion"> | string
   test?: Prisma.XOR<Prisma.TestScalarRelationFilter, Prisma.TestWhereInput>
@@ -236,14 +192,11 @@ export type TestQuestionWhereUniqueInput = Prisma.AtLeast<{
 
 export type TestQuestionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  marks?: Prisma.SortOrder
   testId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
   _count?: Prisma.TestQuestionCountOrderByAggregateInput
-  _avg?: Prisma.TestQuestionAvgOrderByAggregateInput
   _max?: Prisma.TestQuestionMaxOrderByAggregateInput
   _min?: Prisma.TestQuestionMinOrderByAggregateInput
-  _sum?: Prisma.TestQuestionSumOrderByAggregateInput
 }
 
 export type TestQuestionScalarWhereWithAggregatesInput = {
@@ -251,54 +204,46 @@ export type TestQuestionScalarWhereWithAggregatesInput = {
   OR?: Prisma.TestQuestionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TestQuestionScalarWhereWithAggregatesInput | Prisma.TestQuestionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TestQuestion"> | string
-  marks?: Prisma.FloatWithAggregatesFilter<"TestQuestion"> | number
   testId?: Prisma.StringWithAggregatesFilter<"TestQuestion"> | string
   questionId?: Prisma.StringWithAggregatesFilter<"TestQuestion"> | string
 }
 
 export type TestQuestionCreateInput = {
   id?: string
-  marks?: number
   test: Prisma.TestCreateNestedOneWithoutTestQuestionsInput
   question: Prisma.QuestionCreateNestedOneWithoutTestQuestionsInput
 }
 
 export type TestQuestionUncheckedCreateInput = {
   id?: string
-  marks?: number
   testId: string
   questionId: string
 }
 
 export type TestQuestionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   test?: Prisma.TestUpdateOneRequiredWithoutTestQuestionsNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestQuestionsNestedInput
 }
 
 export type TestQuestionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TestQuestionCreateManyInput = {
   id?: string
-  marks?: number
   testId: string
   questionId: string
 }
 
 export type TestQuestionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
 }
 
 export type TestQuestionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -320,31 +265,20 @@ export type TestQuestionTestIdQuestionIdCompoundUniqueInput = {
 
 export type TestQuestionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks?: Prisma.SortOrder
   testId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
 }
 
-export type TestQuestionAvgOrderByAggregateInput = {
-  marks?: Prisma.SortOrder
-}
-
 export type TestQuestionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks?: Prisma.SortOrder
   testId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
 }
 
 export type TestQuestionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  marks?: Prisma.SortOrder
   testId?: Prisma.SortOrder
   questionId?: Prisma.SortOrder
-}
-
-export type TestQuestionSumOrderByAggregateInput = {
-  marks?: Prisma.SortOrder
 }
 
 export type TestQuestionCreateNestedManyWithoutQuestionInput = {
@@ -431,23 +365,13 @@ export type TestQuestionUncheckedUpdateManyWithoutTestNestedInput = {
   deleteMany?: Prisma.TestQuestionScalarWhereInput | Prisma.TestQuestionScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type TestQuestionCreateWithoutQuestionInput = {
   id?: string
-  marks?: number
   test: Prisma.TestCreateNestedOneWithoutTestQuestionsInput
 }
 
 export type TestQuestionUncheckedCreateWithoutQuestionInput = {
   id?: string
-  marks?: number
   testId: string
 }
 
@@ -482,20 +406,17 @@ export type TestQuestionScalarWhereInput = {
   OR?: Prisma.TestQuestionScalarWhereInput[]
   NOT?: Prisma.TestQuestionScalarWhereInput | Prisma.TestQuestionScalarWhereInput[]
   id?: Prisma.StringFilter<"TestQuestion"> | string
-  marks?: Prisma.FloatFilter<"TestQuestion"> | number
   testId?: Prisma.StringFilter<"TestQuestion"> | string
   questionId?: Prisma.StringFilter<"TestQuestion"> | string
 }
 
 export type TestQuestionCreateWithoutTestInput = {
   id?: string
-  marks?: number
   question: Prisma.QuestionCreateNestedOneWithoutTestQuestionsInput
 }
 
 export type TestQuestionUncheckedCreateWithoutTestInput = {
   id?: string
-  marks?: number
   questionId: string
 }
 
@@ -527,49 +448,41 @@ export type TestQuestionUpdateManyWithWhereWithoutTestInput = {
 
 export type TestQuestionCreateManyQuestionInput = {
   id?: string
-  marks?: number
   testId: string
 }
 
 export type TestQuestionUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   test?: Prisma.TestUpdateOneRequiredWithoutTestQuestionsNestedInput
 }
 
 export type TestQuestionUncheckedUpdateWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TestQuestionUncheckedUpdateManyWithoutQuestionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   testId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TestQuestionCreateManyTestInput = {
   id?: string
-  marks?: number
   questionId: string
 }
 
 export type TestQuestionUpdateWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   question?: Prisma.QuestionUpdateOneRequiredWithoutTestQuestionsNestedInput
 }
 
 export type TestQuestionUncheckedUpdateWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type TestQuestionUncheckedUpdateManyWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  marks?: Prisma.FloatFieldUpdateOperationsInput | number
   questionId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -577,7 +490,6 @@ export type TestQuestionUncheckedUpdateManyWithoutTestInput = {
 
 export type TestQuestionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks?: boolean
   testId?: boolean
   questionId?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
@@ -586,7 +498,6 @@ export type TestQuestionSelect<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type TestQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks?: boolean
   testId?: boolean
   questionId?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
@@ -595,7 +506,6 @@ export type TestQuestionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 
 export type TestQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  marks?: boolean
   testId?: boolean
   questionId?: boolean
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
@@ -604,12 +514,11 @@ export type TestQuestionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 
 export type TestQuestionSelectScalar = {
   id?: boolean
-  marks?: boolean
   testId?: boolean
   questionId?: boolean
 }
 
-export type TestQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "marks" | "testId" | "questionId", ExtArgs["result"]["testQuestion"]>
+export type TestQuestionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testId" | "questionId", ExtArgs["result"]["testQuestion"]>
 export type TestQuestionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   test?: boolean | Prisma.TestDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
@@ -631,7 +540,6 @@ export type $TestQuestionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    marks: number
     testId: string
     questionId: string
   }, ExtArgs["result"]["testQuestion"]>
@@ -1060,7 +968,6 @@ export interface Prisma__TestQuestionClient<T, Null = never, ExtArgs extends run
  */
 export interface TestQuestionFieldRefs {
   readonly id: Prisma.FieldRef<"TestQuestion", 'String'>
-  readonly marks: Prisma.FieldRef<"TestQuestion", 'Float'>
   readonly testId: Prisma.FieldRef<"TestQuestion", 'String'>
   readonly questionId: Prisma.FieldRef<"TestQuestion", 'String'>
 }

@@ -15,9 +15,11 @@ model Subject {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  topics    Topic[]
-  questions Question[]
-  pdfs      Pdf[]
+  topics     Topic[]
+  questions  Question[]
+  pdfs       Pdf[]
+  notes      Note[]
+  
 }
 
 model Topic {
@@ -41,9 +43,12 @@ model Topic {
   subjectId String
   subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict)
 
-  questions Question[]
-  pdfs      Pdf[]
-  tests     Test[]
+  questions   Question[]
+  pdfs        Pdf[]
+  tests       Test[]
+  notes       Note[]
+  results TestResult[]
+  
 
   @@unique([subjectId, slug])
   @@index([subjectId])

@@ -53,10 +53,13 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Question: 'Question',
   Pdf: 'Pdf',
+  Point: 'Point',
   Subject: 'Subject',
   Topic: 'Topic',
   Test: 'Test',
   TestQuestion: 'TestQuestion',
+  TestResult: 'TestResult',
+  Note: 'Note',
   User: 'User',
   Session: 'Session',
   Account: 'Account',
@@ -112,6 +115,19 @@ export const PdfScalarFieldEnum = {
 export type PdfScalarFieldEnum = (typeof PdfScalarFieldEnum)[keyof typeof PdfScalarFieldEnum]
 
 
+export const PointScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  points: 'points',
+  description: 'description',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PointScalarFieldEnum = (typeof PointScalarFieldEnum)[keyof typeof PointScalarFieldEnum]
+
+
 export const SubjectScalarFieldEnum = {
   id: 'id',
   slug: 'slug',
@@ -164,12 +180,45 @@ export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof Test
 
 export const TestQuestionScalarFieldEnum = {
   id: 'id',
-  marks: 'marks',
   testId: 'testId',
   questionId: 'questionId'
 } as const
 
 export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[keyof typeof TestQuestionScalarFieldEnum]
+
+
+export const TestResultScalarFieldEnum = {
+  id: 'id',
+  testId: 'testId',
+  userId: 'userId',
+  topicId: 'topicId',
+  score: 'score',
+  negativeScore: 'negativeScore',
+  totalQuestions: 'totalQuestions',
+  correctAnswers: 'correctAnswers',
+  incorrectAnswers: 'incorrectAnswers',
+  skippedAnswers: 'skippedAnswers',
+  accuracy: 'accuracy',
+  testType: 'testType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TestResultScalarFieldEnum = (typeof TestResultScalarFieldEnum)[keyof typeof TestResultScalarFieldEnum]
+
+
+export const NoteScalarFieldEnum = {
+  id: 'id',
+  topicId: 'topicId',
+  topicName: 'topicName',
+  subjectId: 'subjectId',
+  content: 'content',
+  textContent: 'textContent',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoteScalarFieldEnum = (typeof NoteScalarFieldEnum)[keyof typeof NoteScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

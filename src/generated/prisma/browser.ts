@@ -28,6 +28,11 @@ export type Question = Prisma.QuestionModel
  */
 export type Pdf = Prisma.PdfModel
 /**
+ * Model Point
+ * 
+ */
+export type Point = Prisma.PointModel
+/**
  * Model Subject
  * 
  */
@@ -47,6 +52,16 @@ export type Test = Prisma.TestModel
  * 
  */
 export type TestQuestion = Prisma.TestQuestionModel
+/**
+ * Model TestResult
+ * 
+ */
+export type TestResult = Prisma.TestResultModel
+/**
+ * Model Note
+ * 
+ */
+export type Note = Prisma.NoteModel
 /**
  * Model User
  * 

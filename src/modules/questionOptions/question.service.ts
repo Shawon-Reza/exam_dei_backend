@@ -8,15 +8,17 @@ const getQuestions = async (query: any) => {
     const {
         topicID,
         subjectID,
-        numberOfQuestion,
+        limit=100,
         difficulty,
         search,
+        testID
     } = query;
 
-    const limit = Math.max(
-        1,
-        Math.min(parseInt(numberOfQuestion, 10) || 10, 100)
-    );
+
+
+    if (!subjectID && !topicID && !testID) {
+        throw new Error("Either subjectID or topicID or testID must be provided");
+    }
 
     const minDifficulty =
         difficulty !== undefined && difficulty !== ""
@@ -25,7 +27,17 @@ const getQuestions = async (query: any) => {
 
     const subjectIdParam: string | null = subjectID || null;
     const topicIdParam: string | null = topicID || null;
+    const testIdParam: string | null = testID || null;
     const searchParam: string | null = search || null;
+
+    console.log("From service getQuestions", {
+        subjectIdParam,
+        topicIdParam,
+        searchParam,
+        minDifficulty,
+        limit,
+        testIdParam
+    });
 
     const questions = await prisma.$queryRaw`
         SELECT *
@@ -38,6 +50,16 @@ const getQuestions = async (query: any) => {
             AND (
                 CAST(${topicIdParam} AS TEXT) IS NULL
                 OR "topicId" = CAST(${topicIdParam} AS TEXT)
+            )
+            AND (
+                CAST(${testIdParam} AS TEXT) IS NULL
+                OR EXISTS (
+                    SELECT 1
+                    FROM "TestQuestion" AS "testQuestion"
+                    WHERE
+                        "testQuestion"."questionId" = "Question"."id"
+                        AND "testQuestion"."testId" = CAST(${testIdParam} AS TEXT)
+                )
             )
             AND (
                 CAST(${searchParam} AS TEXT) IS NULL

@@ -16,6 +16,24 @@ export const QuestionType = {
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
 
 
+export const PointSource = {
+  TEST: 'TEST',
+  ACTIVITY: 'ACTIVITY',
+  PROFILEUPDATE: 'PROFILEUPDATE'
+} as const
+
+export type PointSource = (typeof PointSource)[keyof typeof PointSource]
+
+
+export const TestType = {
+  PREDEFINED: 'PREDEFINED',
+  PRACTICE: 'PRACTICE',
+  RANDOM: 'RANDOM'
+} as const
+
+export type TestType = (typeof TestType)[keyof typeof TestType]
+
+
 export const ROLE = {
   USER: 'USER',
   ADMIN: 'ADMIN'

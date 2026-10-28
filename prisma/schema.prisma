@@ -25,6 +25,8 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  testResults   TestResult[]
+  points       Point[]
 
   role               ROLE @default(USER)
   userStatus         String @default("ACTIVE")

@@ -1,0 +1,21 @@
+model Note {
+    id String @id @default(cuid())
+
+    topicId   String
+    topicName String
+    subjectId String
+
+    content     Json
+    textContent String
+
+    topic   Topic   @relation(fields: [topicId], references: [id])
+    subject Subject @relation(fields: [subjectId], references: [id])
+
+    
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    
+}
+
