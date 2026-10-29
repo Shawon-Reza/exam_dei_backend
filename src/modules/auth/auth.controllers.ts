@@ -197,6 +197,13 @@ const resetPassword = catchAsyncError(
 const me = catchAsyncError(
     async (req: Request, res: Response) => {
         // const user = req.user;
+        if (!req.user) {
+            return res.status(401).json({
+                status_code: status.UNAUTHORIZED,
+                success: false,
+                message: "Unauthorized",
+            });
+        }
         const user = await authServices.me(req.user)
         // console.log("From COntroller",user)
 
