@@ -8,7 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "lint": "eslint ./src ",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "tsx dist/server.js"
   },
   "keywords": [],
   "author": "",
