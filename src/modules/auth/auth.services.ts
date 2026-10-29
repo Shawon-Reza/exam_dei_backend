@@ -190,11 +190,11 @@ const resetPassword = async (payload: Record<string, unknown>) => {
     return data;
 }
 
-const sendVerificationOTP = async (payload) => {
+const sendVerificationOTP = async (payload :Record<string, unknown>) => {
     const { email } = payload
     const data = await auth.api.sendVerificationOTP({
         body: {
-            email: email, // required, Email address to send the OTP.
+            email: email as string, // required, Email address to send the OTP.
             type: "email-verification", // required, Type of the OTP.
         },
     });

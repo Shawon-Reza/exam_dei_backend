@@ -46,6 +46,7 @@ const createResult = async (resultData: Record<string, unknown>, id: string) => 
             data: {
                 ...resultData,
                 userId: id,
+                topicId: resultData.topicId as string,
             },
         });
 
