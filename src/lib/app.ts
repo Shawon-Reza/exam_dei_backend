@@ -9,7 +9,8 @@ import { toNodeHandler } from 'better-auth/node';
 import { auth } from './auth';
 import cookieParser from 'cookie-parser';
 import path from 'node:path';
-import { env } from '../config/env';
+import { env } from '../config/env.js';
+// import { env } from '../config/env';
 
 export const app = express();
 
