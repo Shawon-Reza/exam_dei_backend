@@ -235,6 +235,23 @@ export type EnumPointSourceWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPointSourceFilter<$PrismaModel>
 }
 
+export type EnumTestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TestStatus | Prisma.EnumTestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTestStatusFilter<$PrismaModel> | $Enums.TestStatus
+}
+
+export type EnumTestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TestStatus | Prisma.EnumTestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTestStatusWithAggregatesFilter<$PrismaModel> | $Enums.TestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTestStatusFilter<$PrismaModel>
+}
+
 export type FloatFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
@@ -526,6 +543,23 @@ export type NestedEnumPointSourceWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPointSourceFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPointSourceFilter<$PrismaModel>
+}
+
+export type NestedEnumTestStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TestStatus | Prisma.EnumTestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTestStatusFilter<$PrismaModel> | $Enums.TestStatus
+}
+
+export type NestedEnumTestStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TestStatus | Prisma.EnumTestStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TestStatus[] | Prisma.ListEnumTestStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTestStatusWithAggregatesFilter<$PrismaModel> | $Enums.TestStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTestStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTestStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumTestTypeFilter<$PrismaModel = never> = {

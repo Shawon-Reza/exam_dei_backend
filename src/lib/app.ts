@@ -1,3 +1,4 @@
+
 import express from 'express';
 import cors from 'cors';
 import { prisma } from './prisma';
@@ -8,16 +9,21 @@ import { toNodeHandler } from 'better-auth/node';
 import { auth } from './auth';
 import cookieParser from 'cookie-parser';
 import path from 'node:path';
+import { env } from '../config/env';
 
 export const app = express();
+
+app.listen(env.PORT, "0.0.0.0", () => {
+    console.log(`Server Listening on port ${env.PORT}`);
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(process.cwd(), 'src/email_templates'));
 
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
+    origin: "http://localhost:3000",
+    credentials: true,
 }));
 app.use(cookieParser());
 

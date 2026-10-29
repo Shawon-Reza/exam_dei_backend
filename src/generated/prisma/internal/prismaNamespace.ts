@@ -1518,7 +1518,9 @@ export const TestScalarFieldEnum = {
   duration: 'duration',
   totalQuestions: 'totalQuestions',
   isActive: 'isActive',
+  status: 'status',
   topicId: 'topicId',
+  subjectId: 'subjectId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1765,6 +1767,20 @@ export type EnumPointSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$Pris
  * Reference to a field of type 'PointSource[]'
  */
 export type ListEnumPointSourceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PointSource[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TestStatus'
+ */
+export type EnumTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TestStatus[]'
+ */
+export type ListEnumTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestStatus[]'>
     
 
 

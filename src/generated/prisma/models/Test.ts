@@ -44,7 +44,9 @@ export type TestMinAggregateOutputType = {
   duration: number | null
   totalQuestions: number | null
   isActive: boolean | null
+  status: $Enums.TestStatus | null
   topicId: string | null
+  subjectId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -57,7 +59,9 @@ export type TestMaxAggregateOutputType = {
   duration: number | null
   totalQuestions: number | null
   isActive: boolean | null
+  status: $Enums.TestStatus | null
   topicId: string | null
+  subjectId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -70,7 +74,9 @@ export type TestCountAggregateOutputType = {
   duration: number
   totalQuestions: number
   isActive: number
+  status: number
   topicId: number
+  subjectId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -95,7 +101,9 @@ export type TestMinAggregateInputType = {
   duration?: true
   totalQuestions?: true
   isActive?: true
+  status?: true
   topicId?: true
+  subjectId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -108,7 +116,9 @@ export type TestMaxAggregateInputType = {
   duration?: true
   totalQuestions?: true
   isActive?: true
+  status?: true
   topicId?: true
+  subjectId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -121,7 +131,9 @@ export type TestCountAggregateInputType = {
   duration?: true
   totalQuestions?: true
   isActive?: true
+  status?: true
   topicId?: true
+  subjectId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -221,7 +233,9 @@ export type TestGroupByOutputType = {
   duration: number
   totalQuestions: number
   isActive: boolean
-  topicId: string
+  status: $Enums.TestStatus
+  topicId: string | null
+  subjectId: string | null
   createdAt: Date
   updatedAt: Date
   _count: TestCountAggregateOutputType | null
@@ -257,10 +271,13 @@ export type TestWhereInput = {
   duration?: Prisma.IntFilter<"Test"> | number
   totalQuestions?: Prisma.IntFilter<"Test"> | number
   isActive?: Prisma.BoolFilter<"Test"> | boolean
-  topicId?: Prisma.StringFilter<"Test"> | string
+  status?: Prisma.EnumTestStatusFilter<"Test"> | $Enums.TestStatus
+  topicId?: Prisma.StringNullableFilter<"Test"> | string | null
+  subjectId?: Prisma.StringNullableFilter<"Test"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-  topic?: Prisma.XOR<Prisma.TopicScalarRelationFilter, Prisma.TopicWhereInput>
+  topic?: Prisma.XOR<Prisma.TopicNullableScalarRelationFilter, Prisma.TopicWhereInput> | null
+  subject?: Prisma.XOR<Prisma.SubjectNullableScalarRelationFilter, Prisma.SubjectWhereInput> | null
   testQuestions?: Prisma.TestQuestionListRelationFilter
   testResults?: Prisma.TestResultListRelationFilter
 }
@@ -273,10 +290,13 @@ export type TestOrderByWithRelationInput = {
   duration?: Prisma.SortOrder
   totalQuestions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  topicId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  topicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   topic?: Prisma.TopicOrderByWithRelationInput
+  subject?: Prisma.SubjectOrderByWithRelationInput
   testQuestions?: Prisma.TestQuestionOrderByRelationAggregateInput
   testResults?: Prisma.TestResultOrderByRelationAggregateInput
 }
@@ -292,10 +312,13 @@ export type TestWhereUniqueInput = Prisma.AtLeast<{
   duration?: Prisma.IntFilter<"Test"> | number
   totalQuestions?: Prisma.IntFilter<"Test"> | number
   isActive?: Prisma.BoolFilter<"Test"> | boolean
-  topicId?: Prisma.StringFilter<"Test"> | string
+  status?: Prisma.EnumTestStatusFilter<"Test"> | $Enums.TestStatus
+  topicId?: Prisma.StringNullableFilter<"Test"> | string | null
+  subjectId?: Prisma.StringNullableFilter<"Test"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-  topic?: Prisma.XOR<Prisma.TopicScalarRelationFilter, Prisma.TopicWhereInput>
+  topic?: Prisma.XOR<Prisma.TopicNullableScalarRelationFilter, Prisma.TopicWhereInput> | null
+  subject?: Prisma.XOR<Prisma.SubjectNullableScalarRelationFilter, Prisma.SubjectWhereInput> | null
   testQuestions?: Prisma.TestQuestionListRelationFilter
   testResults?: Prisma.TestResultListRelationFilter
 }, "id" | "slug">
@@ -308,7 +331,9 @@ export type TestOrderByWithAggregationInput = {
   duration?: Prisma.SortOrder
   totalQuestions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  topicId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  topicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  subjectId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TestCountOrderByAggregateInput
@@ -329,7 +354,9 @@ export type TestScalarWhereWithAggregatesInput = {
   duration?: Prisma.IntWithAggregatesFilter<"Test"> | number
   totalQuestions?: Prisma.IntWithAggregatesFilter<"Test"> | number
   isActive?: Prisma.BoolWithAggregatesFilter<"Test"> | boolean
-  topicId?: Prisma.StringWithAggregatesFilter<"Test"> | string
+  status?: Prisma.EnumTestStatusWithAggregatesFilter<"Test"> | $Enums.TestStatus
+  topicId?: Prisma.StringNullableWithAggregatesFilter<"Test"> | string | null
+  subjectId?: Prisma.StringNullableWithAggregatesFilter<"Test"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Test"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Test"> | Date | string
 }
@@ -342,9 +369,11 @@ export type TestCreateInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  topic: Prisma.TopicCreateNestedOneWithoutTestsInput
+  topic?: Prisma.TopicCreateNestedOneWithoutTestsInput
+  subject?: Prisma.SubjectCreateNestedOneWithoutTestsInput
   testQuestions?: Prisma.TestQuestionCreateNestedManyWithoutTestInput
   testResults?: Prisma.TestResultCreateNestedManyWithoutTestInput
 }
@@ -357,7 +386,9 @@ export type TestUncheckedCreateInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
-  topicId: string
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   testQuestions?: Prisma.TestQuestionUncheckedCreateNestedManyWithoutTestInput
@@ -372,9 +403,11 @@ export type TestUpdateInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  topic?: Prisma.TopicUpdateOneRequiredWithoutTestsNestedInput
+  topic?: Prisma.TopicUpdateOneWithoutTestsNestedInput
+  subject?: Prisma.SubjectUpdateOneWithoutTestsNestedInput
   testQuestions?: Prisma.TestQuestionUpdateManyWithoutTestNestedInput
   testResults?: Prisma.TestResultUpdateManyWithoutTestNestedInput
 }
@@ -387,7 +420,9 @@ export type TestUncheckedUpdateInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testQuestions?: Prisma.TestQuestionUncheckedUpdateManyWithoutTestNestedInput
@@ -402,7 +437,9 @@ export type TestCreateManyInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
-  topicId: string
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -415,6 +452,7 @@ export type TestUpdateManyMutationInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -427,7 +465,9 @@ export type TestUncheckedUpdateManyInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -450,7 +490,9 @@ export type TestCountOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   totalQuestions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
+  subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -468,7 +510,9 @@ export type TestMaxOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   totalQuestions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
+  subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -481,7 +525,9 @@ export type TestMinOrderByAggregateInput = {
   duration?: Prisma.SortOrder
   totalQuestions?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
+  subjectId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -499,6 +545,48 @@ export type TestScalarRelationFilter = {
 export type TestNullableScalarRelationFilter = {
   is?: Prisma.TestWhereInput | null
   isNot?: Prisma.TestWhereInput | null
+}
+
+export type TestCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput> | Prisma.TestCreateWithoutSubjectInput[] | Prisma.TestUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSubjectInput | Prisma.TestCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.TestCreateManySubjectInputEnvelope
+  connect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+}
+
+export type TestUncheckedCreateNestedManyWithoutSubjectInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput> | Prisma.TestCreateWithoutSubjectInput[] | Prisma.TestUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSubjectInput | Prisma.TestCreateOrConnectWithoutSubjectInput[]
+  createMany?: Prisma.TestCreateManySubjectInputEnvelope
+  connect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+}
+
+export type TestUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput> | Prisma.TestCreateWithoutSubjectInput[] | Prisma.TestUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSubjectInput | Prisma.TestCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.TestUpsertWithWhereUniqueWithoutSubjectInput | Prisma.TestUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.TestCreateManySubjectInputEnvelope
+  set?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  disconnect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  delete?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  connect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  update?: Prisma.TestUpdateWithWhereUniqueWithoutSubjectInput | Prisma.TestUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.TestUpdateManyWithWhereWithoutSubjectInput | Prisma.TestUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
+}
+
+export type TestUncheckedUpdateManyWithoutSubjectNestedInput = {
+  create?: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput> | Prisma.TestCreateWithoutSubjectInput[] | Prisma.TestUncheckedCreateWithoutSubjectInput[]
+  connectOrCreate?: Prisma.TestCreateOrConnectWithoutSubjectInput | Prisma.TestCreateOrConnectWithoutSubjectInput[]
+  upsert?: Prisma.TestUpsertWithWhereUniqueWithoutSubjectInput | Prisma.TestUpsertWithWhereUniqueWithoutSubjectInput[]
+  createMany?: Prisma.TestCreateManySubjectInputEnvelope
+  set?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  disconnect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  delete?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  connect?: Prisma.TestWhereUniqueInput | Prisma.TestWhereUniqueInput[]
+  update?: Prisma.TestUpdateWithWhereUniqueWithoutSubjectInput | Prisma.TestUpdateWithWhereUniqueWithoutSubjectInput[]
+  updateMany?: Prisma.TestUpdateManyWithWhereWithoutSubjectInput | Prisma.TestUpdateManyWithWhereWithoutSubjectInput[]
+  deleteMany?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
 }
 
 export type TestCreateNestedManyWithoutTopicInput = {
@@ -543,6 +631,10 @@ export type TestUncheckedUpdateManyWithoutTopicNestedInput = {
   deleteMany?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
 }
 
+export type EnumTestStatusFieldUpdateOperationsInput = {
+  set?: $Enums.TestStatus
+}
+
 export type TestCreateNestedOneWithoutTestQuestionsInput = {
   create?: Prisma.XOR<Prisma.TestCreateWithoutTestQuestionsInput, Prisma.TestUncheckedCreateWithoutTestQuestionsInput>
   connectOrCreate?: Prisma.TestCreateOrConnectWithoutTestQuestionsInput
@@ -573,6 +665,82 @@ export type TestUpdateOneWithoutTestResultsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TestUpdateToOneWithWhereWithoutTestResultsInput, Prisma.TestUpdateWithoutTestResultsInput>, Prisma.TestUncheckedUpdateWithoutTestResultsInput>
 }
 
+export type TestCreateWithoutSubjectInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  duration?: number
+  totalQuestions?: number
+  isActive?: boolean
+  status?: $Enums.TestStatus
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  topic?: Prisma.TopicCreateNestedOneWithoutTestsInput
+  testQuestions?: Prisma.TestQuestionCreateNestedManyWithoutTestInput
+  testResults?: Prisma.TestResultCreateNestedManyWithoutTestInput
+}
+
+export type TestUncheckedCreateWithoutSubjectInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  duration?: number
+  totalQuestions?: number
+  isActive?: boolean
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  testQuestions?: Prisma.TestQuestionUncheckedCreateNestedManyWithoutTestInput
+  testResults?: Prisma.TestResultUncheckedCreateNestedManyWithoutTestInput
+}
+
+export type TestCreateOrConnectWithoutSubjectInput = {
+  where: Prisma.TestWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput>
+}
+
+export type TestCreateManySubjectInputEnvelope = {
+  data: Prisma.TestCreateManySubjectInput | Prisma.TestCreateManySubjectInput[]
+  skipDuplicates?: boolean
+}
+
+export type TestUpsertWithWhereUniqueWithoutSubjectInput = {
+  where: Prisma.TestWhereUniqueInput
+  update: Prisma.XOR<Prisma.TestUpdateWithoutSubjectInput, Prisma.TestUncheckedUpdateWithoutSubjectInput>
+  create: Prisma.XOR<Prisma.TestCreateWithoutSubjectInput, Prisma.TestUncheckedCreateWithoutSubjectInput>
+}
+
+export type TestUpdateWithWhereUniqueWithoutSubjectInput = {
+  where: Prisma.TestWhereUniqueInput
+  data: Prisma.XOR<Prisma.TestUpdateWithoutSubjectInput, Prisma.TestUncheckedUpdateWithoutSubjectInput>
+}
+
+export type TestUpdateManyWithWhereWithoutSubjectInput = {
+  where: Prisma.TestScalarWhereInput
+  data: Prisma.XOR<Prisma.TestUpdateManyMutationInput, Prisma.TestUncheckedUpdateManyWithoutSubjectInput>
+}
+
+export type TestScalarWhereInput = {
+  AND?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
+  OR?: Prisma.TestScalarWhereInput[]
+  NOT?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
+  id?: Prisma.StringFilter<"Test"> | string
+  name?: Prisma.StringFilter<"Test"> | string
+  slug?: Prisma.StringFilter<"Test"> | string
+  description?: Prisma.StringNullableFilter<"Test"> | string | null
+  duration?: Prisma.IntFilter<"Test"> | number
+  totalQuestions?: Prisma.IntFilter<"Test"> | number
+  isActive?: Prisma.BoolFilter<"Test"> | boolean
+  status?: Prisma.EnumTestStatusFilter<"Test"> | $Enums.TestStatus
+  topicId?: Prisma.StringNullableFilter<"Test"> | string | null
+  subjectId?: Prisma.StringNullableFilter<"Test"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
+}
+
 export type TestCreateWithoutTopicInput = {
   id?: string
   name: string
@@ -581,8 +749,10 @@ export type TestCreateWithoutTopicInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
+  subject?: Prisma.SubjectCreateNestedOneWithoutTestsInput
   testQuestions?: Prisma.TestQuestionCreateNestedManyWithoutTestInput
   testResults?: Prisma.TestResultCreateNestedManyWithoutTestInput
 }
@@ -595,6 +765,8 @@ export type TestUncheckedCreateWithoutTopicInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   testQuestions?: Prisma.TestQuestionUncheckedCreateNestedManyWithoutTestInput
@@ -627,22 +799,6 @@ export type TestUpdateManyWithWhereWithoutTopicInput = {
   data: Prisma.XOR<Prisma.TestUpdateManyMutationInput, Prisma.TestUncheckedUpdateManyWithoutTopicInput>
 }
 
-export type TestScalarWhereInput = {
-  AND?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
-  OR?: Prisma.TestScalarWhereInput[]
-  NOT?: Prisma.TestScalarWhereInput | Prisma.TestScalarWhereInput[]
-  id?: Prisma.StringFilter<"Test"> | string
-  name?: Prisma.StringFilter<"Test"> | string
-  slug?: Prisma.StringFilter<"Test"> | string
-  description?: Prisma.StringNullableFilter<"Test"> | string | null
-  duration?: Prisma.IntFilter<"Test"> | number
-  totalQuestions?: Prisma.IntFilter<"Test"> | number
-  isActive?: Prisma.BoolFilter<"Test"> | boolean
-  topicId?: Prisma.StringFilter<"Test"> | string
-  createdAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Test"> | Date | string
-}
-
 export type TestCreateWithoutTestQuestionsInput = {
   id?: string
   name: string
@@ -651,9 +807,11 @@ export type TestCreateWithoutTestQuestionsInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  topic: Prisma.TopicCreateNestedOneWithoutTestsInput
+  topic?: Prisma.TopicCreateNestedOneWithoutTestsInput
+  subject?: Prisma.SubjectCreateNestedOneWithoutTestsInput
   testResults?: Prisma.TestResultCreateNestedManyWithoutTestInput
 }
 
@@ -665,7 +823,9 @@ export type TestUncheckedCreateWithoutTestQuestionsInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
-  topicId: string
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   testResults?: Prisma.TestResultUncheckedCreateNestedManyWithoutTestInput
@@ -695,9 +855,11 @@ export type TestUpdateWithoutTestQuestionsInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  topic?: Prisma.TopicUpdateOneRequiredWithoutTestsNestedInput
+  topic?: Prisma.TopicUpdateOneWithoutTestsNestedInput
+  subject?: Prisma.SubjectUpdateOneWithoutTestsNestedInput
   testResults?: Prisma.TestResultUpdateManyWithoutTestNestedInput
 }
 
@@ -709,7 +871,9 @@ export type TestUncheckedUpdateWithoutTestQuestionsInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testResults?: Prisma.TestResultUncheckedUpdateManyWithoutTestNestedInput
@@ -723,9 +887,11 @@ export type TestCreateWithoutTestResultsInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  topic: Prisma.TopicCreateNestedOneWithoutTestsInput
+  topic?: Prisma.TopicCreateNestedOneWithoutTestsInput
+  subject?: Prisma.SubjectCreateNestedOneWithoutTestsInput
   testQuestions?: Prisma.TestQuestionCreateNestedManyWithoutTestInput
 }
 
@@ -737,7 +903,9 @@ export type TestUncheckedCreateWithoutTestResultsInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
-  topicId: string
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   testQuestions?: Prisma.TestQuestionUncheckedCreateNestedManyWithoutTestInput
@@ -767,9 +935,11 @@ export type TestUpdateWithoutTestResultsInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  topic?: Prisma.TopicUpdateOneRequiredWithoutTestsNestedInput
+  topic?: Prisma.TopicUpdateOneWithoutTestsNestedInput
+  subject?: Prisma.SubjectUpdateOneWithoutTestsNestedInput
   testQuestions?: Prisma.TestQuestionUpdateManyWithoutTestNestedInput
 }
 
@@ -781,10 +951,72 @@ export type TestUncheckedUpdateWithoutTestResultsInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testQuestions?: Prisma.TestQuestionUncheckedUpdateManyWithoutTestNestedInput
+}
+
+export type TestCreateManySubjectInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  duration?: number
+  totalQuestions?: number
+  isActive?: boolean
+  status?: $Enums.TestStatus
+  topicId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TestUpdateWithoutSubjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  topic?: Prisma.TopicUpdateOneWithoutTestsNestedInput
+  testQuestions?: Prisma.TestQuestionUpdateManyWithoutTestNestedInput
+  testResults?: Prisma.TestResultUpdateManyWithoutTestNestedInput
+}
+
+export type TestUncheckedUpdateWithoutSubjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  testQuestions?: Prisma.TestQuestionUncheckedUpdateManyWithoutTestNestedInput
+  testResults?: Prisma.TestResultUncheckedUpdateManyWithoutTestNestedInput
+}
+
+export type TestUncheckedUpdateManyWithoutSubjectInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  topicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TestCreateManyTopicInput = {
@@ -795,6 +1027,8 @@ export type TestCreateManyTopicInput = {
   duration?: number
   totalQuestions?: number
   isActive?: boolean
+  status?: $Enums.TestStatus
+  subjectId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -807,8 +1041,10 @@ export type TestUpdateWithoutTopicInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subject?: Prisma.SubjectUpdateOneWithoutTestsNestedInput
   testQuestions?: Prisma.TestQuestionUpdateManyWithoutTestNestedInput
   testResults?: Prisma.TestResultUpdateManyWithoutTestNestedInput
 }
@@ -821,6 +1057,8 @@ export type TestUncheckedUpdateWithoutTopicInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   testQuestions?: Prisma.TestQuestionUncheckedUpdateManyWithoutTestNestedInput
@@ -835,6 +1073,8 @@ export type TestUncheckedUpdateManyWithoutTopicInput = {
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumTestStatusFieldUpdateOperationsInput | $Enums.TestStatus
+  subjectId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -887,10 +1127,13 @@ export type TestSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   duration?: boolean
   totalQuestions?: boolean
   isActive?: boolean
+  status?: boolean
   topicId?: boolean
+  subjectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
   testQuestions?: boolean | Prisma.Test$testQuestionsArgs<ExtArgs>
   testResults?: boolean | Prisma.Test$testResultsArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
@@ -904,10 +1147,13 @@ export type TestSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   duration?: boolean
   totalQuestions?: boolean
   isActive?: boolean
+  status?: boolean
   topicId?: boolean
+  subjectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
 
 export type TestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -918,10 +1164,13 @@ export type TestSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   duration?: boolean
   totalQuestions?: boolean
   isActive?: boolean
+  status?: boolean
   topicId?: boolean
+  subjectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
 }, ExtArgs["result"]["test"]>
 
 export type TestSelectScalar = {
@@ -932,29 +1181,35 @@ export type TestSelectScalar = {
   duration?: boolean
   totalQuestions?: boolean
   isActive?: boolean
+  status?: boolean
   topicId?: boolean
+  subjectId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "duration" | "totalQuestions" | "isActive" | "topicId" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
+export type TestOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "description" | "duration" | "totalQuestions" | "isActive" | "status" | "topicId" | "subjectId" | "createdAt" | "updatedAt", ExtArgs["result"]["test"]>
 export type TestInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
   testQuestions?: boolean | Prisma.Test$testQuestionsArgs<ExtArgs>
   testResults?: boolean | Prisma.Test$testResultsArgs<ExtArgs>
   _count?: boolean | Prisma.TestCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TestIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
 }
 export type TestIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  topic?: boolean | Prisma.Test$topicArgs<ExtArgs>
+  subject?: boolean | Prisma.Test$subjectArgs<ExtArgs>
 }
 
 export type $TestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Test"
   objects: {
-    topic: Prisma.$TopicPayload<ExtArgs>
+    topic: Prisma.$TopicPayload<ExtArgs> | null
+    subject: Prisma.$SubjectPayload<ExtArgs> | null
     testQuestions: Prisma.$TestQuestionPayload<ExtArgs>[]
     testResults: Prisma.$TestResultPayload<ExtArgs>[]
   }
@@ -966,7 +1221,9 @@ export type $TestPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     duration: number
     totalQuestions: number
     isActive: boolean
-    topicId: string
+    status: $Enums.TestStatus
+    topicId: string | null
+    subjectId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["test"]>
@@ -1363,7 +1620,8 @@ readonly fields: TestFieldRefs;
  */
 export interface Prisma__TestClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  topic<T extends Prisma.TopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TopicDefaultArgs<ExtArgs>>): Prisma.Prisma__TopicClient<runtime.Types.Result.GetResult<Prisma.$TopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  topic<T extends Prisma.Test$topicArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$topicArgs<ExtArgs>>): Prisma.Prisma__TopicClient<runtime.Types.Result.GetResult<Prisma.$TopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  subject<T extends Prisma.Test$subjectArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$subjectArgs<ExtArgs>>): Prisma.Prisma__SubjectClient<runtime.Types.Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   testQuestions<T extends Prisma.Test$testQuestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$testQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   testResults<T extends Prisma.Test$testResultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Test$testResultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1402,7 +1660,9 @@ export interface TestFieldRefs {
   readonly duration: Prisma.FieldRef<"Test", 'Int'>
   readonly totalQuestions: Prisma.FieldRef<"Test", 'Int'>
   readonly isActive: Prisma.FieldRef<"Test", 'Boolean'>
+  readonly status: Prisma.FieldRef<"Test", 'TestStatus'>
   readonly topicId: Prisma.FieldRef<"Test", 'String'>
+  readonly subjectId: Prisma.FieldRef<"Test", 'String'>
   readonly createdAt: Prisma.FieldRef<"Test", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Test", 'DateTime'>
 }
@@ -1803,6 +2063,44 @@ export type TestDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Tests to delete.
    */
   limit?: number
+}
+
+/**
+ * Test.topic
+ */
+export type Test$topicArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Topic
+   */
+  select?: Prisma.TopicSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Topic
+   */
+  omit?: Prisma.TopicOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TopicInclude<ExtArgs> | null
+  where?: Prisma.TopicWhereInput
+}
+
+/**
+ * Test.subject
+ */
+export type Test$subjectArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Subject
+   */
+  select?: Prisma.SubjectSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Subject
+   */
+  omit?: Prisma.SubjectOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubjectInclude<ExtArgs> | null
+  where?: Prisma.SubjectWhereInput
 }
 
 /**

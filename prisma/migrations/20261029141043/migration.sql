@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Test" ALTER COLUMN "topicId" DROP NOT NULL,
+ALTER COLUMN "subjectId" DROP NOT NULL;

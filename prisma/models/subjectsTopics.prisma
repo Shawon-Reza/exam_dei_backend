@@ -19,6 +19,7 @@ model Subject {
   questions  Question[]
   pdfs       Pdf[]
   notes      Note[]
+  tests      Test[]
   
 }
 

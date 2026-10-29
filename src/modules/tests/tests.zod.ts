@@ -31,7 +31,20 @@ export const createTestSchema = z.object({
 
     topicId: z
         .string()
-        .min(1, "Topic ID is required"),
+        .min(1, "Topic ID is required")
+        .optional()
+        ,
+
+    subjectId: z
+        .string()
+        .min(1, "Subject ID is required").optional(),
+    status: z
+        .enum(["PRACTICE", "LIVE", "UPCOMING"], "Status must be one of 'PRACTICE', 'LIVE', or 'UPCOMING'")
+        .optional()
+    
 });
+
+// "subjectId":"cmvo4rpz20000y4catsbgb56i",
+//   "status": "PRACTICE"
 
 export type CreateTestInput = z.infer<typeof createTestSchema>;

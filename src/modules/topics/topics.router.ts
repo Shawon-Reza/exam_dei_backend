@@ -6,7 +6,7 @@ import { ROLE } from "../../generated/prisma/enums";
 
 export const topicRouter = Router();
 
-topicRouter.get("/", authMiddleware([]), topicController.getAllTopics);
+topicRouter.get("/",  topicController.getAllTopics);
 
 topicRouter.post("/", authMiddleware([ROLE.ADMIN]), multerUploader.single("icon"), topicController.createTopic);
 
@@ -14,4 +14,4 @@ topicRouter.put("/:id", authMiddleware([ROLE.ADMIN]), multerUploader.single("ico
 
 topicRouter.delete("/:id", authMiddleware([ROLE.ADMIN]), topicController.deleteTopicById);
 
-topicRouter.get("/deep_details", authMiddleware([]), topicController.getTopicDeepDetails);
+topicRouter.get("/deep_details", topicController.getTopicDeepDetails);

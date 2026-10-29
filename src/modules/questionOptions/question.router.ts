@@ -7,7 +7,7 @@ import { ROLE } from "../../generated/prisma/enums";
 
 export const questionRouter = Router();
 
-questionRouter.get("/", authMiddleware([]), questionController.getQuestions);
+questionRouter.get("/", questionController.getQuestions);
 
 questionRouter.post("/",authMiddleware([ROLE.ADMIN]), zodValidationFN(createQuestionsSchema), questionController.createQuestion);
 

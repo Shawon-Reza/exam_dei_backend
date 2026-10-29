@@ -561,6 +561,11 @@ export type TopicSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
 }
 
+export type TopicNullableScalarRelationFilter = {
+  is?: Prisma.TopicWhereInput | null
+  isNot?: Prisma.TopicWhereInput | null
+}
+
 export type TopicCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.TopicCreateOrConnectWithoutQuestionsInput
@@ -637,10 +642,12 @@ export type TopicCreateNestedOneWithoutTestsInput = {
   connect?: Prisma.TopicWhereUniqueInput
 }
 
-export type TopicUpdateOneRequiredWithoutTestsNestedInput = {
+export type TopicUpdateOneWithoutTestsNestedInput = {
   create?: Prisma.XOR<Prisma.TopicCreateWithoutTestsInput, Prisma.TopicUncheckedCreateWithoutTestsInput>
   connectOrCreate?: Prisma.TopicCreateOrConnectWithoutTestsInput
   upsert?: Prisma.TopicUpsertWithoutTestsInput
+  disconnect?: Prisma.TopicWhereInput | boolean
+  delete?: Prisma.TopicWhereInput | boolean
   connect?: Prisma.TopicWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutTestsInput, Prisma.TopicUpdateWithoutTestsInput>, Prisma.TopicUncheckedUpdateWithoutTestsInput>
 }

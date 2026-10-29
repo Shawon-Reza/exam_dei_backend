@@ -25,6 +25,15 @@ export const PointSource = {
 export type PointSource = (typeof PointSource)[keyof typeof PointSource]
 
 
+export const TestStatus = {
+  PRACTICE: 'PRACTICE',
+  UPCOMING: 'UPCOMING',
+  LIVE: 'LIVE'
+} as const
+
+export type TestStatus = (typeof TestStatus)[keyof typeof TestStatus]
+
+
 export const TestType = {
   PREDEFINED: 'PREDEFINED',
   PRACTICE: 'PRACTICE',

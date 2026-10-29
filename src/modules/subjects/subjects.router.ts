@@ -6,7 +6,7 @@ import { ROLE } from "../../generated/prisma/enums";
 
 export const subjectsRouter = Router();
 
-subjectsRouter.get("/", authMiddleware([]), subjectController.getAllSubjects);
+subjectsRouter.get("/", subjectController.getAllSubjects);
 
 subjectsRouter.post("/", authMiddleware([ROLE.ADMIN]), multerUploader.single("file"), subjectController.createSubject);
 

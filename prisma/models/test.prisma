@@ -1,3 +1,9 @@
+enum TestStatus {
+    PRACTICE
+    UPCOMING
+    LIVE
+}
+
 model Test {
     id          String  @id @default(cuid())
     name        String
@@ -7,10 +13,14 @@ model Test {
     duration       Int @default(30)
     totalQuestions Int @default(20)
 
-    isActive Boolean @default(true)
+    isActive Boolean    @default(true)
+    status   TestStatus @default(PRACTICE)
 
-    topicId String
-    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+    topicId String?
+    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+    subjectId String?
+    subject   Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
     testQuestions TestQuestion[]
     testResults   TestResult[]

@@ -1,15 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { Prisma, TestStatus } from "../../generated/prisma/client"
 import { prisma } from "../../lib/prisma"
 import { CreateTestInput } from "./tests.zod"
 
 
 
-const getTest = async (id: string) => {
-    console.log("id", id)
+
+const getTest = async (query: Record<string, unknown>) => {
+    const { topicId, subjectId, status } = query
+
+    console.log("id", topicId, subjectId, status)
+
+    const where: Prisma.TestWhereInput = {};
+
+    if (topicId) {
+        where.topicId = topicId as string;
+    }
+
+    if (subjectId) {
+        where.subjectId = subjectId as string;
+    }
+
+    if (status) {
+        where.status = status as TestStatus;
+    }
+
+
     const result = await prisma.test.findMany({
-        where: {
-            topicId: id
-        },
+        where,
         include: {
             _count: {
                 select: {
@@ -25,7 +43,9 @@ const getTest = async (id: string) => {
 }
 
 const createTest = async (payload: CreateTestInput) => {
+
     console.log("payload from createTest", payload)
+
     const result = await prisma.test.create({
         data: payload
     })
@@ -51,7 +71,7 @@ const assignQuestionToTest = async (payload: Record<string, unknown>) => {
 
 const updateTest = async (payload: CreateTestInput, id: string) => {
     console.log("payload from updateTest", payload)
-    
+
     const result = await prisma.test.update({
         where: {
             id: id
