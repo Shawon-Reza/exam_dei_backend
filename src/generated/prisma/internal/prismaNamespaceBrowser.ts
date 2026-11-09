@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  MCQTest: 'MCQTest',
   Question: 'Question',
   Pdf: 'Pdf',
   Point: 'Point',
@@ -82,13 +83,40 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const MCQTestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  banglaName: 'banglaName',
+  slug: 'slug',
+  description: 'description',
+  duration: 'duration',
+  totalQuestions: 'totalQuestions',
+  totalMarks: 'totalMarks',
+  passMarks: 'passMarks',
+  negativeMarking: 'negativeMarking',
+  negativeMark: 'negativeMark',
+  questions: 'questions',
+  status: 'status',
+  isActive: 'isActive',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  subjectId: 'subjectId',
+  topicId: 'topicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MCQTestScalarFieldEnum = (typeof MCQTestScalarFieldEnum)[keyof typeof MCQTestScalarFieldEnum]
+
+
 export const QuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
+  banglaQuestion: 'banglaQuestion',
   options: 'options',
-  type: 'type',
-  difficulty: 'difficulty',
+  correctAnswer: 'correctAnswer',
   explanation: 'explanation',
+  banglaExplanation: 'banglaExplanation',
   isActive: 'isActive',
   subjectId: 'subjectId',
   topicId: 'topicId',
@@ -192,6 +220,7 @@ export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[k
 export const TestResultScalarFieldEnum = {
   id: 'id',
   testId: 'testId',
+  mcqTestId: 'mcqTestId',
   userId: 'userId',
   topicId: 'topicId',
   score: 'score',

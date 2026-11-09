@@ -1,24 +1,23 @@
-enum QuestionType {
-    MCQ
-}
-
 model Question {
     id String @id @default(cuid())
 
-    question   String       @unique @db.Text
-    options    Json
-    type       QuestionType @default(MCQ)
-    difficulty Int          @default(3)
+    question       String  @db.Text @unique
+    banglaQuestion String? @db.Text  @unique
+    questions      Json
 
-    explanation String? @db.Text
+    options        Json
+    correctAnswer  String
+
+    explanation       String? @db.Text
+    banglaExplanation String? @db.Text
 
     isActive Boolean @default(true)
 
     subjectId String
-    topicId   String
+    topicId   String?
 
     subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: SetNull)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -27,5 +26,4 @@ model Question {
 
     @@index([subjectId, isActive])
     @@index([topicId, isActive])
-    @@index([difficulty, isActive])
 }

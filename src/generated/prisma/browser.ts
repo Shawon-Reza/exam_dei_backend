@@ -18,6 +18,11 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model MCQTest
+ * 
+ */
+export type MCQTest = Prisma.MCQTestModel
+/**
  * Model Question
  * 
  */

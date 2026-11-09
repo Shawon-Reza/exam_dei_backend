@@ -31,7 +31,6 @@ model Test {
 
 model TestQuestion {
     id String @id @default(cuid())
-
     // marks Float @default(1)
 
     testId String
@@ -56,8 +55,9 @@ model TestResult {
     testId String?
     test   Test?   @relation(fields: [testId], references: [id], onDelete: Cascade)
 
-    userId String
-    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    mcqTestId String
+    userId    String
+    user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     topicId String
     topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
@@ -67,10 +67,12 @@ model TestResult {
 
     totalQuestions   Int      @default(0)
     correctAnswers   Int      @default(0)
-    incorrectAnswers Int      @default(0)
+    incorrectAnswers Int      @default(0)   
     skippedAnswers   Int      @default(0)
     accuracy         Float    @default(0)
     testType         TestType @default(PREDEFINED)
+
+    mcqTests MCQTest @relation(fields: [mcqTestId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

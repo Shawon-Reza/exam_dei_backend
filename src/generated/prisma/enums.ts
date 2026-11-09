@@ -9,11 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
-export const QuestionType = {
-  MCQ: 'MCQ'
+export const MCQTestStatus = {
+  DRAFT: 'DRAFT',
+  UPCOMING: 'UPCOMING',
+  LIVE: 'LIVE',
+  COMPLETED: 'COMPLETED'
 } as const
 
-export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+export type MCQTestStatus = (typeof MCQTestStatus)[keyof typeof MCQTestStatus]
 
 
 export const PointSource = {

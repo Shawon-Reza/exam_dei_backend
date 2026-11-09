@@ -85,6 +85,8 @@ const getQuestions = async (query: any) => {
 const createQuestion = async (payload: CreateQuestionsInput) => {
     const { subjectId, topicId, questions } = payload;
 
+    console.log("From service createQuestion", payload);
+
     if (!topicId) {
         throw new Error("Topic ID is required");
     }
@@ -96,7 +98,13 @@ const createQuestion = async (payload: CreateQuestionsInput) => {
     }
 
     const questionsWithSubjectTopic = questions.map((item) => ({
-        ...item,
+        question: item.question,
+        banglaQuestion: item.banglaQuestion,
+        options: item.options,
+        correctAnswer: item.correctAnswer,
+        explanation: item.explanation,
+        banglaExplanation: item.banglaExplanation,
+        isActive: item.isActive,
         subjectId,
         topicId,
     }));

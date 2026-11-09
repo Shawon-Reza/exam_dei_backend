@@ -8,6 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/MCQTest'
 export type * from './models/Question'
 export type * from './models/Pdf'
 export type * from './models/Point'

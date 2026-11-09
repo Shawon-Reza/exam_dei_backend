@@ -397,6 +397,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 
 export const ModelName = {
+  MCQTest: 'MCQTest',
   Question: 'Question',
   Pdf: 'Pdf',
   Point: 'Point',
@@ -425,10 +426,84 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "question" | "pdf" | "point" | "subject" | "topic" | "test" | "testQuestion" | "testResult" | "note" | "user" | "session" | "account" | "verification"
+    modelProps: "mCQTest" | "question" | "pdf" | "point" | "subject" | "topic" | "test" | "testQuestion" | "testResult" | "note" | "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
+    MCQTest: {
+      payload: Prisma.$MCQTestPayload<ExtArgs>
+      fields: Prisma.MCQTestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MCQTestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MCQTestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        findFirst: {
+          args: Prisma.MCQTestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MCQTestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        findMany: {
+          args: Prisma.MCQTestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>[]
+        }
+        create: {
+          args: Prisma.MCQTestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        createMany: {
+          args: Prisma.MCQTestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MCQTestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>[]
+        }
+        delete: {
+          args: Prisma.MCQTestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        update: {
+          args: Prisma.MCQTestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        deleteMany: {
+          args: Prisma.MCQTestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MCQTestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MCQTestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>[]
+        }
+        upsert: {
+          args: Prisma.MCQTestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MCQTestPayload>
+        }
+        aggregate: {
+          args: Prisma.MCQTestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMCQTest>
+        }
+        groupBy: {
+          args: Prisma.MCQTestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MCQTestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MCQTestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MCQTestCountAggregateOutputType> | number
+        }
+      }
+    }
     Question: {
       payload: Prisma.$QuestionPayload<ExtArgs>
       fields: Prisma.QuestionFieldRefs
@@ -1430,13 +1505,40 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const MCQTestScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  banglaName: 'banglaName',
+  slug: 'slug',
+  description: 'description',
+  duration: 'duration',
+  totalQuestions: 'totalQuestions',
+  totalMarks: 'totalMarks',
+  passMarks: 'passMarks',
+  negativeMarking: 'negativeMarking',
+  negativeMark: 'negativeMark',
+  questions: 'questions',
+  status: 'status',
+  isActive: 'isActive',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  subjectId: 'subjectId',
+  topicId: 'topicId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MCQTestScalarFieldEnum = (typeof MCQTestScalarFieldEnum)[keyof typeof MCQTestScalarFieldEnum]
+
+
 export const QuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
+  banglaQuestion: 'banglaQuestion',
   options: 'options',
-  type: 'type',
-  difficulty: 'difficulty',
+  correctAnswer: 'correctAnswer',
   explanation: 'explanation',
+  banglaExplanation: 'banglaExplanation',
   isActive: 'isActive',
   subjectId: 'subjectId',
   topicId: 'topicId',
@@ -1540,6 +1642,7 @@ export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[k
 export const TestResultScalarFieldEnum = {
   id: 'id',
   testId: 'testId',
+  mcqTestId: 'mcqTestId',
   userId: 'userId',
   topicId: 'topicId',
   score: 'score',
@@ -1694,34 +1797,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-/**
- * Reference to a field of type 'QuestionType'
- */
-export type EnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionType'>
-    
-
-
-/**
- * Reference to a field of type 'QuestionType[]'
- */
-export type ListEnumQuestionTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QuestionType[]'>
-    
-
-
-/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -1736,9 +1811,51 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Float'
+ */
+export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+/**
+ * Reference to a field of type 'Float[]'
+ */
+export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'MCQTestStatus'
+ */
+export type EnumMCQTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MCQTestStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'MCQTestStatus[]'
+ */
+export type ListEnumMCQTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MCQTestStatus[]'>
     
 
 
@@ -1781,20 +1898,6 @@ export type EnumTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
  * Reference to a field of type 'TestStatus[]'
  */
 export type ListEnumTestStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TestStatus[]'>
-    
-
-
-/**
- * Reference to a field of type 'Float'
- */
-export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
@@ -1976,6 +2079,7 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
  */
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
+  mCQTest?: Prisma.MCQTestOmit
   question?: Prisma.QuestionOmit
   pdf?: Prisma.PdfOmit
   point?: Prisma.PointOmit

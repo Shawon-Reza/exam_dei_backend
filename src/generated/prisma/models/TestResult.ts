@@ -49,6 +49,7 @@ export type TestResultSumAggregateOutputType = {
 export type TestResultMinAggregateOutputType = {
   id: string | null
   testId: string | null
+  mcqTestId: string | null
   userId: string | null
   topicId: string | null
   score: number | null
@@ -66,6 +67,7 @@ export type TestResultMinAggregateOutputType = {
 export type TestResultMaxAggregateOutputType = {
   id: string | null
   testId: string | null
+  mcqTestId: string | null
   userId: string | null
   topicId: string | null
   score: number | null
@@ -83,6 +85,7 @@ export type TestResultMaxAggregateOutputType = {
 export type TestResultCountAggregateOutputType = {
   id: number
   testId: number
+  mcqTestId: number
   userId: number
   topicId: number
   score: number
@@ -122,6 +125,7 @@ export type TestResultSumAggregateInputType = {
 export type TestResultMinAggregateInputType = {
   id?: true
   testId?: true
+  mcqTestId?: true
   userId?: true
   topicId?: true
   score?: true
@@ -139,6 +143,7 @@ export type TestResultMinAggregateInputType = {
 export type TestResultMaxAggregateInputType = {
   id?: true
   testId?: true
+  mcqTestId?: true
   userId?: true
   topicId?: true
   score?: true
@@ -156,6 +161,7 @@ export type TestResultMaxAggregateInputType = {
 export type TestResultCountAggregateInputType = {
   id?: true
   testId?: true
+  mcqTestId?: true
   userId?: true
   topicId?: true
   score?: true
@@ -260,6 +266,7 @@ export type TestResultGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type TestResultGroupByOutputType = {
   id: string
   testId: string | null
+  mcqTestId: string
   userId: string
   topicId: string
   score: number
@@ -300,6 +307,7 @@ export type TestResultWhereInput = {
   NOT?: Prisma.TestResultWhereInput | Prisma.TestResultWhereInput[]
   id?: Prisma.StringFilter<"TestResult"> | string
   testId?: Prisma.StringNullableFilter<"TestResult"> | string | null
+  mcqTestId?: Prisma.StringFilter<"TestResult"> | string
   userId?: Prisma.StringFilter<"TestResult"> | string
   topicId?: Prisma.StringFilter<"TestResult"> | string
   score?: Prisma.FloatFilter<"TestResult"> | number
@@ -315,11 +323,13 @@ export type TestResultWhereInput = {
   test?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   topic?: Prisma.XOR<Prisma.TopicScalarRelationFilter, Prisma.TopicWhereInput>
+  mcqTests?: Prisma.XOR<Prisma.MCQTestScalarRelationFilter, Prisma.MCQTestWhereInput>
 }
 
 export type TestResultOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   testId?: Prisma.SortOrderInput | Prisma.SortOrder
+  mcqTestId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -335,6 +345,7 @@ export type TestResultOrderByWithRelationInput = {
   test?: Prisma.TestOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
   topic?: Prisma.TopicOrderByWithRelationInput
+  mcqTests?: Prisma.MCQTestOrderByWithRelationInput
 }
 
 export type TestResultWhereUniqueInput = Prisma.AtLeast<{
@@ -343,6 +354,7 @@ export type TestResultWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.TestResultWhereInput[]
   NOT?: Prisma.TestResultWhereInput | Prisma.TestResultWhereInput[]
   testId?: Prisma.StringNullableFilter<"TestResult"> | string | null
+  mcqTestId?: Prisma.StringFilter<"TestResult"> | string
   userId?: Prisma.StringFilter<"TestResult"> | string
   topicId?: Prisma.StringFilter<"TestResult"> | string
   score?: Prisma.FloatFilter<"TestResult"> | number
@@ -358,11 +370,13 @@ export type TestResultWhereUniqueInput = Prisma.AtLeast<{
   test?: Prisma.XOR<Prisma.TestNullableScalarRelationFilter, Prisma.TestWhereInput> | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   topic?: Prisma.XOR<Prisma.TopicScalarRelationFilter, Prisma.TopicWhereInput>
+  mcqTests?: Prisma.XOR<Prisma.MCQTestScalarRelationFilter, Prisma.MCQTestWhereInput>
 }, "id">
 
 export type TestResultOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   testId?: Prisma.SortOrderInput | Prisma.SortOrder
+  mcqTestId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -388,6 +402,7 @@ export type TestResultScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TestResultScalarWhereWithAggregatesInput | Prisma.TestResultScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"TestResult"> | string
   testId?: Prisma.StringNullableWithAggregatesFilter<"TestResult"> | string | null
+  mcqTestId?: Prisma.StringWithAggregatesFilter<"TestResult"> | string
   userId?: Prisma.StringWithAggregatesFilter<"TestResult"> | string
   topicId?: Prisma.StringWithAggregatesFilter<"TestResult"> | string
   score?: Prisma.FloatWithAggregatesFilter<"TestResult"> | number
@@ -417,11 +432,13 @@ export type TestResultCreateInput = {
   test?: Prisma.TestCreateNestedOneWithoutTestResultsInput
   user: Prisma.UserCreateNestedOneWithoutTestResultsInput
   topic: Prisma.TopicCreateNestedOneWithoutResultsInput
+  mcqTests: Prisma.MCQTestCreateNestedOneWithoutTestResultsInput
 }
 
 export type TestResultUncheckedCreateInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   userId: string
   topicId: string
   score?: number
@@ -451,11 +468,13 @@ export type TestResultUpdateInput = {
   test?: Prisma.TestUpdateOneWithoutTestResultsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTestResultsNestedInput
   topic?: Prisma.TopicUpdateOneRequiredWithoutResultsNestedInput
+  mcqTests?: Prisma.MCQTestUpdateOneRequiredWithoutTestResultsNestedInput
 }
 
 export type TestResultUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -473,6 +492,7 @@ export type TestResultUncheckedUpdateInput = {
 export type TestResultCreateManyInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   userId: string
   topicId: string
   score?: number
@@ -504,6 +524,7 @@ export type TestResultUpdateManyMutationInput = {
 export type TestResultUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -531,6 +552,7 @@ export type TestResultOrderByRelationAggregateInput = {
 export type TestResultCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  mcqTestId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -558,6 +580,7 @@ export type TestResultAvgOrderByAggregateInput = {
 export type TestResultMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  mcqTestId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -575,6 +598,7 @@ export type TestResultMaxOrderByAggregateInput = {
 export type TestResultMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   testId?: Prisma.SortOrder
+  mcqTestId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   topicId?: Prisma.SortOrder
   score?: Prisma.SortOrder
@@ -597,6 +621,48 @@ export type TestResultSumOrderByAggregateInput = {
   incorrectAnswers?: Prisma.SortOrder
   skippedAnswers?: Prisma.SortOrder
   accuracy?: Prisma.SortOrder
+}
+
+export type TestResultCreateNestedManyWithoutMcqTestsInput = {
+  create?: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput> | Prisma.TestResultCreateWithoutMcqTestsInput[] | Prisma.TestResultUncheckedCreateWithoutMcqTestsInput[]
+  connectOrCreate?: Prisma.TestResultCreateOrConnectWithoutMcqTestsInput | Prisma.TestResultCreateOrConnectWithoutMcqTestsInput[]
+  createMany?: Prisma.TestResultCreateManyMcqTestsInputEnvelope
+  connect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+}
+
+export type TestResultUncheckedCreateNestedManyWithoutMcqTestsInput = {
+  create?: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput> | Prisma.TestResultCreateWithoutMcqTestsInput[] | Prisma.TestResultUncheckedCreateWithoutMcqTestsInput[]
+  connectOrCreate?: Prisma.TestResultCreateOrConnectWithoutMcqTestsInput | Prisma.TestResultCreateOrConnectWithoutMcqTestsInput[]
+  createMany?: Prisma.TestResultCreateManyMcqTestsInputEnvelope
+  connect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+}
+
+export type TestResultUpdateManyWithoutMcqTestsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput> | Prisma.TestResultCreateWithoutMcqTestsInput[] | Prisma.TestResultUncheckedCreateWithoutMcqTestsInput[]
+  connectOrCreate?: Prisma.TestResultCreateOrConnectWithoutMcqTestsInput | Prisma.TestResultCreateOrConnectWithoutMcqTestsInput[]
+  upsert?: Prisma.TestResultUpsertWithWhereUniqueWithoutMcqTestsInput | Prisma.TestResultUpsertWithWhereUniqueWithoutMcqTestsInput[]
+  createMany?: Prisma.TestResultCreateManyMcqTestsInputEnvelope
+  set?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  disconnect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  delete?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  connect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  update?: Prisma.TestResultUpdateWithWhereUniqueWithoutMcqTestsInput | Prisma.TestResultUpdateWithWhereUniqueWithoutMcqTestsInput[]
+  updateMany?: Prisma.TestResultUpdateManyWithWhereWithoutMcqTestsInput | Prisma.TestResultUpdateManyWithWhereWithoutMcqTestsInput[]
+  deleteMany?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
+}
+
+export type TestResultUncheckedUpdateManyWithoutMcqTestsNestedInput = {
+  create?: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput> | Prisma.TestResultCreateWithoutMcqTestsInput[] | Prisma.TestResultUncheckedCreateWithoutMcqTestsInput[]
+  connectOrCreate?: Prisma.TestResultCreateOrConnectWithoutMcqTestsInput | Prisma.TestResultCreateOrConnectWithoutMcqTestsInput[]
+  upsert?: Prisma.TestResultUpsertWithWhereUniqueWithoutMcqTestsInput | Prisma.TestResultUpsertWithWhereUniqueWithoutMcqTestsInput[]
+  createMany?: Prisma.TestResultCreateManyMcqTestsInputEnvelope
+  set?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  disconnect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  delete?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  connect?: Prisma.TestResultWhereUniqueInput | Prisma.TestResultWhereUniqueInput[]
+  update?: Prisma.TestResultUpdateWithWhereUniqueWithoutMcqTestsInput | Prisma.TestResultUpdateWithWhereUniqueWithoutMcqTestsInput[]
+  updateMany?: Prisma.TestResultUpdateManyWithWhereWithoutMcqTestsInput | Prisma.TestResultUpdateManyWithWhereWithoutMcqTestsInput[]
+  deleteMany?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
 }
 
 export type TestResultCreateNestedManyWithoutTopicInput = {
@@ -683,14 +749,6 @@ export type TestResultUncheckedUpdateManyWithoutTestNestedInput = {
   deleteMany?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
 }
 
-export type FloatFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type EnumTestTypeFieldUpdateOperationsInput = {
   set?: $Enums.TestType
 }
@@ -737,6 +795,87 @@ export type TestResultUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
 }
 
+export type TestResultCreateWithoutMcqTestsInput = {
+  id?: string
+  score?: number
+  negativeScore?: number
+  totalQuestions?: number
+  correctAnswers?: number
+  incorrectAnswers?: number
+  skippedAnswers?: number
+  accuracy?: number
+  testType?: $Enums.TestType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  test?: Prisma.TestCreateNestedOneWithoutTestResultsInput
+  user: Prisma.UserCreateNestedOneWithoutTestResultsInput
+  topic: Prisma.TopicCreateNestedOneWithoutResultsInput
+}
+
+export type TestResultUncheckedCreateWithoutMcqTestsInput = {
+  id?: string
+  testId?: string | null
+  userId: string
+  topicId: string
+  score?: number
+  negativeScore?: number
+  totalQuestions?: number
+  correctAnswers?: number
+  incorrectAnswers?: number
+  skippedAnswers?: number
+  accuracy?: number
+  testType?: $Enums.TestType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TestResultCreateOrConnectWithoutMcqTestsInput = {
+  where: Prisma.TestResultWhereUniqueInput
+  create: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput>
+}
+
+export type TestResultCreateManyMcqTestsInputEnvelope = {
+  data: Prisma.TestResultCreateManyMcqTestsInput | Prisma.TestResultCreateManyMcqTestsInput[]
+  skipDuplicates?: boolean
+}
+
+export type TestResultUpsertWithWhereUniqueWithoutMcqTestsInput = {
+  where: Prisma.TestResultWhereUniqueInput
+  update: Prisma.XOR<Prisma.TestResultUpdateWithoutMcqTestsInput, Prisma.TestResultUncheckedUpdateWithoutMcqTestsInput>
+  create: Prisma.XOR<Prisma.TestResultCreateWithoutMcqTestsInput, Prisma.TestResultUncheckedCreateWithoutMcqTestsInput>
+}
+
+export type TestResultUpdateWithWhereUniqueWithoutMcqTestsInput = {
+  where: Prisma.TestResultWhereUniqueInput
+  data: Prisma.XOR<Prisma.TestResultUpdateWithoutMcqTestsInput, Prisma.TestResultUncheckedUpdateWithoutMcqTestsInput>
+}
+
+export type TestResultUpdateManyWithWhereWithoutMcqTestsInput = {
+  where: Prisma.TestResultScalarWhereInput
+  data: Prisma.XOR<Prisma.TestResultUpdateManyMutationInput, Prisma.TestResultUncheckedUpdateManyWithoutMcqTestsInput>
+}
+
+export type TestResultScalarWhereInput = {
+  AND?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
+  OR?: Prisma.TestResultScalarWhereInput[]
+  NOT?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
+  id?: Prisma.StringFilter<"TestResult"> | string
+  testId?: Prisma.StringNullableFilter<"TestResult"> | string | null
+  mcqTestId?: Prisma.StringFilter<"TestResult"> | string
+  userId?: Prisma.StringFilter<"TestResult"> | string
+  topicId?: Prisma.StringFilter<"TestResult"> | string
+  score?: Prisma.FloatFilter<"TestResult"> | number
+  negativeScore?: Prisma.FloatFilter<"TestResult"> | number
+  totalQuestions?: Prisma.IntFilter<"TestResult"> | number
+  correctAnswers?: Prisma.IntFilter<"TestResult"> | number
+  incorrectAnswers?: Prisma.IntFilter<"TestResult"> | number
+  skippedAnswers?: Prisma.IntFilter<"TestResult"> | number
+  accuracy?: Prisma.FloatFilter<"TestResult"> | number
+  testType?: Prisma.EnumTestTypeFilter<"TestResult"> | $Enums.TestType
+  createdAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
+}
+
 export type TestResultCreateWithoutTopicInput = {
   id?: string
   score?: number
@@ -751,11 +890,13 @@ export type TestResultCreateWithoutTopicInput = {
   updatedAt?: Date | string
   test?: Prisma.TestCreateNestedOneWithoutTestResultsInput
   user: Prisma.UserCreateNestedOneWithoutTestResultsInput
+  mcqTests: Prisma.MCQTestCreateNestedOneWithoutTestResultsInput
 }
 
 export type TestResultUncheckedCreateWithoutTopicInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   userId: string
   score?: number
   negativeScore?: number
@@ -795,26 +936,6 @@ export type TestResultUpdateManyWithWhereWithoutTopicInput = {
   data: Prisma.XOR<Prisma.TestResultUpdateManyMutationInput, Prisma.TestResultUncheckedUpdateManyWithoutTopicInput>
 }
 
-export type TestResultScalarWhereInput = {
-  AND?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
-  OR?: Prisma.TestResultScalarWhereInput[]
-  NOT?: Prisma.TestResultScalarWhereInput | Prisma.TestResultScalarWhereInput[]
-  id?: Prisma.StringFilter<"TestResult"> | string
-  testId?: Prisma.StringNullableFilter<"TestResult"> | string | null
-  userId?: Prisma.StringFilter<"TestResult"> | string
-  topicId?: Prisma.StringFilter<"TestResult"> | string
-  score?: Prisma.FloatFilter<"TestResult"> | number
-  negativeScore?: Prisma.FloatFilter<"TestResult"> | number
-  totalQuestions?: Prisma.IntFilter<"TestResult"> | number
-  correctAnswers?: Prisma.IntFilter<"TestResult"> | number
-  incorrectAnswers?: Prisma.IntFilter<"TestResult"> | number
-  skippedAnswers?: Prisma.IntFilter<"TestResult"> | number
-  accuracy?: Prisma.FloatFilter<"TestResult"> | number
-  testType?: Prisma.EnumTestTypeFilter<"TestResult"> | $Enums.TestType
-  createdAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"TestResult"> | Date | string
-}
-
 export type TestResultCreateWithoutTestInput = {
   id?: string
   score?: number
@@ -829,10 +950,12 @@ export type TestResultCreateWithoutTestInput = {
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutTestResultsInput
   topic: Prisma.TopicCreateNestedOneWithoutResultsInput
+  mcqTests: Prisma.MCQTestCreateNestedOneWithoutTestResultsInput
 }
 
 export type TestResultUncheckedCreateWithoutTestInput = {
   id?: string
+  mcqTestId: string
   userId: string
   topicId: string
   score?: number
@@ -887,11 +1010,13 @@ export type TestResultCreateWithoutUserInput = {
   updatedAt?: Date | string
   test?: Prisma.TestCreateNestedOneWithoutTestResultsInput
   topic: Prisma.TopicCreateNestedOneWithoutResultsInput
+  mcqTests: Prisma.MCQTestCreateNestedOneWithoutTestResultsInput
 }
 
 export type TestResultUncheckedCreateWithoutUserInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   topicId: string
   score?: number
   negativeScore?: number
@@ -931,9 +1056,78 @@ export type TestResultUpdateManyWithWhereWithoutUserInput = {
   data: Prisma.XOR<Prisma.TestResultUpdateManyMutationInput, Prisma.TestResultUncheckedUpdateManyWithoutUserInput>
 }
 
+export type TestResultCreateManyMcqTestsInput = {
+  id?: string
+  testId?: string | null
+  userId: string
+  topicId: string
+  score?: number
+  negativeScore?: number
+  totalQuestions?: number
+  correctAnswers?: number
+  incorrectAnswers?: number
+  skippedAnswers?: number
+  accuracy?: number
+  testType?: $Enums.TestType
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TestResultUpdateWithoutMcqTestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  score?: Prisma.FloatFieldUpdateOperationsInput | number
+  negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  correctAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  incorrectAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  skippedAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
+  testType?: Prisma.EnumTestTypeFieldUpdateOperationsInput | $Enums.TestType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  test?: Prisma.TestUpdateOneWithoutTestResultsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutTestResultsNestedInput
+  topic?: Prisma.TopicUpdateOneRequiredWithoutResultsNestedInput
+}
+
+export type TestResultUncheckedUpdateWithoutMcqTestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  score?: Prisma.FloatFieldUpdateOperationsInput | number
+  negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  correctAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  incorrectAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  skippedAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
+  testType?: Prisma.EnumTestTypeFieldUpdateOperationsInput | $Enums.TestType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TestResultUncheckedUpdateManyWithoutMcqTestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  topicId?: Prisma.StringFieldUpdateOperationsInput | string
+  score?: Prisma.FloatFieldUpdateOperationsInput | number
+  negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
+  totalQuestions?: Prisma.IntFieldUpdateOperationsInput | number
+  correctAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  incorrectAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  skippedAnswers?: Prisma.IntFieldUpdateOperationsInput | number
+  accuracy?: Prisma.FloatFieldUpdateOperationsInput | number
+  testType?: Prisma.EnumTestTypeFieldUpdateOperationsInput | $Enums.TestType
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type TestResultCreateManyTopicInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   userId: string
   score?: number
   negativeScore?: number
@@ -961,11 +1155,13 @@ export type TestResultUpdateWithoutTopicInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneWithoutTestResultsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutTestResultsNestedInput
+  mcqTests?: Prisma.MCQTestUpdateOneRequiredWithoutTestResultsNestedInput
 }
 
 export type TestResultUncheckedUpdateWithoutTopicInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -982,6 +1178,7 @@ export type TestResultUncheckedUpdateWithoutTopicInput = {
 export type TestResultUncheckedUpdateManyWithoutTopicInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -997,6 +1194,7 @@ export type TestResultUncheckedUpdateManyWithoutTopicInput = {
 
 export type TestResultCreateManyTestInput = {
   id?: string
+  mcqTestId: string
   userId: string
   topicId: string
   score?: number
@@ -1025,10 +1223,12 @@ export type TestResultUpdateWithoutTestInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutTestResultsNestedInput
   topic?: Prisma.TopicUpdateOneRequiredWithoutResultsNestedInput
+  mcqTests?: Prisma.MCQTestUpdateOneRequiredWithoutTestResultsNestedInput
 }
 
 export type TestResultUncheckedUpdateWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1045,6 +1245,7 @@ export type TestResultUncheckedUpdateWithoutTestInput = {
 
 export type TestResultUncheckedUpdateManyWithoutTestInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1062,6 +1263,7 @@ export type TestResultUncheckedUpdateManyWithoutTestInput = {
 export type TestResultCreateManyUserInput = {
   id?: string
   testId?: string | null
+  mcqTestId: string
   topicId: string
   score?: number
   negativeScore?: number
@@ -1089,11 +1291,13 @@ export type TestResultUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   test?: Prisma.TestUpdateOneWithoutTestResultsNestedInput
   topic?: Prisma.TopicUpdateOneRequiredWithoutResultsNestedInput
+  mcqTests?: Prisma.MCQTestUpdateOneRequiredWithoutTestResultsNestedInput
 }
 
 export type TestResultUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1110,6 +1314,7 @@ export type TestResultUncheckedUpdateWithoutUserInput = {
 export type TestResultUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   testId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mcqTestId?: Prisma.StringFieldUpdateOperationsInput | string
   topicId?: Prisma.StringFieldUpdateOperationsInput | string
   score?: Prisma.FloatFieldUpdateOperationsInput | number
   negativeScore?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1128,6 +1333,7 @@ export type TestResultUncheckedUpdateManyWithoutUserInput = {
 export type TestResultSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testId?: boolean
+  mcqTestId?: boolean
   userId?: boolean
   topicId?: boolean
   score?: boolean
@@ -1143,11 +1349,13 @@ export type TestResultSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testResult"]>
 
 export type TestResultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testId?: boolean
+  mcqTestId?: boolean
   userId?: boolean
   topicId?: boolean
   score?: boolean
@@ -1163,11 +1371,13 @@ export type TestResultSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testResult"]>
 
 export type TestResultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   testId?: boolean
+  mcqTestId?: boolean
   userId?: boolean
   topicId?: boolean
   score?: boolean
@@ -1183,11 +1393,13 @@ export type TestResultSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["testResult"]>
 
 export type TestResultSelectScalar = {
   id?: boolean
   testId?: boolean
+  mcqTestId?: boolean
   userId?: boolean
   topicId?: boolean
   score?: boolean
@@ -1202,21 +1414,24 @@ export type TestResultSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TestResultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testId" | "userId" | "topicId" | "score" | "negativeScore" | "totalQuestions" | "correctAnswers" | "incorrectAnswers" | "skippedAnswers" | "accuracy" | "testType" | "createdAt" | "updatedAt", ExtArgs["result"]["testResult"]>
+export type TestResultOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "testId" | "mcqTestId" | "userId" | "topicId" | "score" | "negativeScore" | "totalQuestions" | "correctAnswers" | "incorrectAnswers" | "skippedAnswers" | "accuracy" | "testType" | "createdAt" | "updatedAt", ExtArgs["result"]["testResult"]>
 export type TestResultInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }
 export type TestResultIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }
 export type TestResultIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   test?: boolean | Prisma.TestResult$testArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   topic?: boolean | Prisma.TopicDefaultArgs<ExtArgs>
+  mcqTests?: boolean | Prisma.MCQTestDefaultArgs<ExtArgs>
 }
 
 export type $TestResultPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1225,10 +1440,12 @@ export type $TestResultPayload<ExtArgs extends runtime.Types.Extensions.Internal
     test: Prisma.$TestPayload<ExtArgs> | null
     user: Prisma.$UserPayload<ExtArgs>
     topic: Prisma.$TopicPayload<ExtArgs>
+    mcqTests: Prisma.$MCQTestPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     testId: string | null
+    mcqTestId: string
     userId: string
     topicId: string
     score: number
@@ -1638,6 +1855,7 @@ export interface Prisma__TestResultClient<T, Null = never, ExtArgs extends runti
   test<T extends Prisma.TestResult$testArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TestResult$testArgs<ExtArgs>>): Prisma.Prisma__TestClient<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   topic<T extends Prisma.TopicDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TopicDefaultArgs<ExtArgs>>): Prisma.Prisma__TopicClient<runtime.Types.Result.GetResult<Prisma.$TopicPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mcqTests<T extends Prisma.MCQTestDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MCQTestDefaultArgs<ExtArgs>>): Prisma.Prisma__MCQTestClient<runtime.Types.Result.GetResult<Prisma.$MCQTestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1669,6 +1887,7 @@ export interface Prisma__TestResultClient<T, Null = never, ExtArgs extends runti
 export interface TestResultFieldRefs {
   readonly id: Prisma.FieldRef<"TestResult", 'String'>
   readonly testId: Prisma.FieldRef<"TestResult", 'String'>
+  readonly mcqTestId: Prisma.FieldRef<"TestResult", 'String'>
   readonly userId: Prisma.FieldRef<"TestResult", 'String'>
   readonly topicId: Prisma.FieldRef<"TestResult", 'String'>
   readonly score: Prisma.FieldRef<"TestResult", 'Float'>

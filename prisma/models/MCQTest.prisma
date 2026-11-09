@@ -1,0 +1,51 @@
+enum MCQTestStatus {
+  DRAFT
+  UPCOMING
+  LIVE
+  COMPLETED
+}
+
+
+model MCQTest {
+  id          String  @id @default(cuid())
+
+  name        String
+  banglaName  String?
+
+  slug        String  @unique
+
+  description String?
+  // imageUrl    String?
+
+  duration       Int   @default(30)
+  totalQuestions Int   @default(20)
+  totalMarks     Float @default(20)
+  passMarks      Float?
+
+  negativeMarking Boolean @default(false)
+  negativeMark    Float   @default(0)
+
+  questions Json
+
+  status MCQTestStatus @default(DRAFT)
+
+  isActive Boolean @default(true)
+
+  startAt DateTime?
+  endAt   DateTime?
+
+  subjectId String?
+  topicId   String?
+
+  subject Subject? @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  topic   Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  testResults TestResult[]
+
+  @@index([subjectId, status])
+  @@index([topicId, status])
+  @@index([status, isActive])
+}

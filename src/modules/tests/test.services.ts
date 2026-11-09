@@ -7,14 +7,42 @@ import { CreateTestInput } from "./tests.zod"
 
 
 const getTest = async (query: Record<string, unknown>) => {
-    const { topicId, subjectId, status } = query
+    const { topicId, subjectId, status, search } = query
 
-    console.log("id", topicId, subjectId, status)
+    console.log("id", topicId, subjectId, status, search)
 
     const where: Prisma.TestWhereInput = {};
 
     if (topicId) {
         where.topicId = topicId as string;
+    }
+
+    if (!topicId && !subjectId) {
+        where.AND = [
+            {
+                topicId: null,
+                subjectId: null
+            }
+        ];
+    }
+
+    if( subjectId && !topicId) {
+        where.subjectId = subjectId as string;
+        where.topicId = null;
+    }
+
+    if (search) {
+        where.OR = [
+            {
+                name: { contains: search as string, mode: 'insensitive' }
+            },
+            {
+                slug: { contains: search as string, mode: 'insensitive' }
+            },
+            {
+                description: { contains: search as string, mode: 'insensitive' }
+            },
+        ];
     }
 
     if (subjectId) {

@@ -20,6 +20,7 @@ model Subject {
   pdfs       Pdf[]
   notes      Note[]
   tests      Test[]
+  mcqTests  MCQTest[]
   
 }
 
@@ -49,6 +50,7 @@ model Topic {
   tests       Test[]
   notes       Note[]
   results TestResult[]
+  mcqTests  MCQTest[]
   
 
   @@unique([subjectId, slug])

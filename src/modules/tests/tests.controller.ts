@@ -5,7 +5,7 @@ import { testsService } from "./test.services"
 
 
 const getTest = catchAsyncError(async (req: Request, res: Response) => {
-    console.log("Get Test Controller Triggered")
+    console.log("Get Test Controller Triggered::", req.query)
 
     const result = await testsService.getTest( req.query)
 

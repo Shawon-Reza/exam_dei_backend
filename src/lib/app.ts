@@ -21,9 +21,18 @@ app.listen(env.PORT, "0.0.0.0", () => {
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(process.cwd(), 'src/email_templates'));
 
-app.use(express.json());
+app.use(express.json(
+    {
+        limit: '200kb',
+    }
+));
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: [
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://chakriova.shawonreza.site",
+        "https://exam-dei-backend.onrender.com",
+    ],
     credentials: true,
 }));
 app.use(cookieParser());
