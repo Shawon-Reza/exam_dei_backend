@@ -180,6 +180,7 @@ const getTopicDeepDetails = async (topicID: string) => {
             tests: true,
             notes: true,
             pdfs: true,
+            // questions: true
         }
     })
     return result

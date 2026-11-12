@@ -277,8 +277,6 @@ export type TopicWhereInput = {
   pdfs?: Prisma.PdfListRelationFilter
   tests?: Prisma.TestListRelationFilter
   notes?: Prisma.NoteListRelationFilter
-  results?: Prisma.TestResultListRelationFilter
-  mcqTests?: Prisma.MCQTestListRelationFilter
 }
 
 export type TopicOrderByWithRelationInput = {
@@ -299,8 +297,6 @@ export type TopicOrderByWithRelationInput = {
   pdfs?: Prisma.PdfOrderByRelationAggregateInput
   tests?: Prisma.TestOrderByRelationAggregateInput
   notes?: Prisma.NoteOrderByRelationAggregateInput
-  results?: Prisma.TestResultOrderByRelationAggregateInput
-  mcqTests?: Prisma.MCQTestOrderByRelationAggregateInput
 }
 
 export type TopicWhereUniqueInput = Prisma.AtLeast<{
@@ -325,8 +321,6 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   pdfs?: Prisma.PdfListRelationFilter
   tests?: Prisma.TestListRelationFilter
   notes?: Prisma.NoteListRelationFilter
-  results?: Prisma.TestResultListRelationFilter
-  mcqTests?: Prisma.MCQTestListRelationFilter
 }, "id" | "slug" | "subjectId_slug">
 
 export type TopicOrderByWithAggregationInput = {
@@ -384,8 +378,6 @@ export type TopicCreateInput = {
   pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateInput = {
@@ -405,8 +397,6 @@ export type TopicUncheckedCreateInput = {
   pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUpdateInput = {
@@ -426,8 +416,6 @@ export type TopicUpdateInput = {
   pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateInput = {
@@ -447,8 +435,6 @@ export type TopicUncheckedUpdateInput = {
   pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateManyInput = {
@@ -573,22 +559,6 @@ export type TopicSumOrderByAggregateInput = {
   sortOrder?: Prisma.SortOrder
 }
 
-export type TopicCreateNestedOneWithoutMcqTestsInput = {
-  create?: Prisma.XOR<Prisma.TopicCreateWithoutMcqTestsInput, Prisma.TopicUncheckedCreateWithoutMcqTestsInput>
-  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutMcqTestsInput
-  connect?: Prisma.TopicWhereUniqueInput
-}
-
-export type TopicUpdateOneWithoutMcqTestsNestedInput = {
-  create?: Prisma.XOR<Prisma.TopicCreateWithoutMcqTestsInput, Prisma.TopicUncheckedCreateWithoutMcqTestsInput>
-  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutMcqTestsInput
-  upsert?: Prisma.TopicUpsertWithoutMcqTestsInput
-  disconnect?: Prisma.TopicWhereInput | boolean
-  delete?: Prisma.TopicWhereInput | boolean
-  connect?: Prisma.TopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutMcqTestsInput, Prisma.TopicUpdateWithoutMcqTestsInput>, Prisma.TopicUncheckedUpdateWithoutMcqTestsInput>
-}
-
 export type TopicCreateNestedOneWithoutQuestionsInput = {
   create?: Prisma.XOR<Prisma.TopicCreateWithoutQuestionsInput, Prisma.TopicUncheckedCreateWithoutQuestionsInput>
   connectOrCreate?: Prisma.TopicCreateOrConnectWithoutQuestionsInput
@@ -677,20 +647,6 @@ export type TopicUpdateOneWithoutTestsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutTestsInput, Prisma.TopicUpdateWithoutTestsInput>, Prisma.TopicUncheckedUpdateWithoutTestsInput>
 }
 
-export type TopicCreateNestedOneWithoutResultsInput = {
-  create?: Prisma.XOR<Prisma.TopicCreateWithoutResultsInput, Prisma.TopicUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutResultsInput
-  connect?: Prisma.TopicWhereUniqueInput
-}
-
-export type TopicUpdateOneRequiredWithoutResultsNestedInput = {
-  create?: Prisma.XOR<Prisma.TopicCreateWithoutResultsInput, Prisma.TopicUncheckedCreateWithoutResultsInput>
-  connectOrCreate?: Prisma.TopicCreateOrConnectWithoutResultsInput
-  upsert?: Prisma.TopicUpsertWithoutResultsInput
-  connect?: Prisma.TopicWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutResultsInput, Prisma.TopicUpdateWithoutResultsInput>, Prisma.TopicUncheckedUpdateWithoutResultsInput>
-}
-
 export type TopicCreateNestedOneWithoutNotesInput = {
   create?: Prisma.XOR<Prisma.TopicCreateWithoutNotesInput, Prisma.TopicUncheckedCreateWithoutNotesInput>
   connectOrCreate?: Prisma.TopicCreateOrConnectWithoutNotesInput
@@ -703,102 +659,6 @@ export type TopicUpdateOneRequiredWithoutNotesNestedInput = {
   upsert?: Prisma.TopicUpsertWithoutNotesInput
   connect?: Prisma.TopicWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TopicUpdateToOneWithWhereWithoutNotesInput, Prisma.TopicUpdateWithoutNotesInput>, Prisma.TopicUncheckedUpdateWithoutNotesInput>
-}
-
-export type TopicCreateWithoutMcqTestsInput = {
-  id?: string
-  slug: string
-  name: string
-  banglaName?: string | null
-  searchName?: string | null
-  description?: string | null
-  sortOrder?: number
-  isActive?: boolean
-  icon?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutTopicsInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
-  pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
-  tests?: Prisma.TestCreateNestedManyWithoutTopicInput
-  notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-}
-
-export type TopicUncheckedCreateWithoutMcqTestsInput = {
-  id?: string
-  slug: string
-  name: string
-  banglaName?: string | null
-  searchName?: string | null
-  description?: string | null
-  sortOrder?: number
-  isActive?: boolean
-  icon?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subjectId: string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
-  pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
-  tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-}
-
-export type TopicCreateOrConnectWithoutMcqTestsInput = {
-  where: Prisma.TopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.TopicCreateWithoutMcqTestsInput, Prisma.TopicUncheckedCreateWithoutMcqTestsInput>
-}
-
-export type TopicUpsertWithoutMcqTestsInput = {
-  update: Prisma.XOR<Prisma.TopicUpdateWithoutMcqTestsInput, Prisma.TopicUncheckedUpdateWithoutMcqTestsInput>
-  create: Prisma.XOR<Prisma.TopicCreateWithoutMcqTestsInput, Prisma.TopicUncheckedCreateWithoutMcqTestsInput>
-  where?: Prisma.TopicWhereInput
-}
-
-export type TopicUpdateToOneWithWhereWithoutMcqTestsInput = {
-  where?: Prisma.TopicWhereInput
-  data: Prisma.XOR<Prisma.TopicUpdateWithoutMcqTestsInput, Prisma.TopicUncheckedUpdateWithoutMcqTestsInput>
-}
-
-export type TopicUpdateWithoutMcqTestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutTopicsNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
-  pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
-  tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
-  notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-}
-
-export type TopicUncheckedUpdateWithoutMcqTestsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
-  pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
-  tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateWithoutQuestionsInput = {
@@ -817,8 +677,6 @@ export type TopicCreateWithoutQuestionsInput = {
   pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutQuestionsInput = {
@@ -837,8 +695,6 @@ export type TopicUncheckedCreateWithoutQuestionsInput = {
   pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutQuestionsInput = {
@@ -873,8 +729,6 @@ export type TopicUpdateWithoutQuestionsInput = {
   pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutQuestionsInput = {
@@ -893,8 +747,6 @@ export type TopicUncheckedUpdateWithoutQuestionsInput = {
   pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateWithoutPdfsInput = {
@@ -913,8 +765,6 @@ export type TopicCreateWithoutPdfsInput = {
   questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutPdfsInput = {
@@ -933,8 +783,6 @@ export type TopicUncheckedCreateWithoutPdfsInput = {
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutPdfsInput = {
@@ -969,8 +817,6 @@ export type TopicUpdateWithoutPdfsInput = {
   questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutPdfsInput = {
@@ -989,8 +835,6 @@ export type TopicUncheckedUpdateWithoutPdfsInput = {
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateWithoutSubjectInput = {
@@ -1009,8 +853,6 @@ export type TopicCreateWithoutSubjectInput = {
   pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutSubjectInput = {
@@ -1029,8 +871,6 @@ export type TopicUncheckedCreateWithoutSubjectInput = {
   pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutSubjectInput = {
@@ -1093,8 +933,6 @@ export type TopicCreateWithoutTestsInput = {
   questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
   pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutTestsInput = {
@@ -1113,8 +951,6 @@ export type TopicUncheckedCreateWithoutTestsInput = {
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
   pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
   notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutTestsInput = {
@@ -1149,8 +985,6 @@ export type TopicUpdateWithoutTestsInput = {
   questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
   pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutTestsInput = {
@@ -1169,104 +1003,6 @@ export type TopicUncheckedUpdateWithoutTestsInput = {
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
   pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
-}
-
-export type TopicCreateWithoutResultsInput = {
-  id?: string
-  slug: string
-  name: string
-  banglaName?: string | null
-  searchName?: string | null
-  description?: string | null
-  sortOrder?: number
-  isActive?: boolean
-  icon?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subject: Prisma.SubjectCreateNestedOneWithoutTopicsInput
-  questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
-  pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
-  tests?: Prisma.TestCreateNestedManyWithoutTopicInput
-  notes?: Prisma.NoteCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
-}
-
-export type TopicUncheckedCreateWithoutResultsInput = {
-  id?: string
-  slug: string
-  name: string
-  banglaName?: string | null
-  searchName?: string | null
-  description?: string | null
-  sortOrder?: number
-  isActive?: boolean
-  icon?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subjectId: string
-  questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
-  pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
-  tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
-  notes?: Prisma.NoteUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
-}
-
-export type TopicCreateOrConnectWithoutResultsInput = {
-  where: Prisma.TopicWhereUniqueInput
-  create: Prisma.XOR<Prisma.TopicCreateWithoutResultsInput, Prisma.TopicUncheckedCreateWithoutResultsInput>
-}
-
-export type TopicUpsertWithoutResultsInput = {
-  update: Prisma.XOR<Prisma.TopicUpdateWithoutResultsInput, Prisma.TopicUncheckedUpdateWithoutResultsInput>
-  create: Prisma.XOR<Prisma.TopicCreateWithoutResultsInput, Prisma.TopicUncheckedCreateWithoutResultsInput>
-  where?: Prisma.TopicWhereInput
-}
-
-export type TopicUpdateToOneWithWhereWithoutResultsInput = {
-  where?: Prisma.TopicWhereInput
-  data: Prisma.XOR<Prisma.TopicUpdateWithoutResultsInput, Prisma.TopicUncheckedUpdateWithoutResultsInput>
-}
-
-export type TopicUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subject?: Prisma.SubjectUpdateOneRequiredWithoutTopicsNestedInput
-  questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
-  pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
-  tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
-  notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
-}
-
-export type TopicUncheckedUpdateWithoutResultsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  banglaName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  searchName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subjectId?: Prisma.StringFieldUpdateOperationsInput | string
-  questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
-  pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
-  tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
-  notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateWithoutNotesInput = {
@@ -1285,8 +1021,6 @@ export type TopicCreateWithoutNotesInput = {
   questions?: Prisma.QuestionCreateNestedManyWithoutTopicInput
   pdfs?: Prisma.PdfCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestCreateNestedManyWithoutTopicInput
 }
 
 export type TopicUncheckedCreateWithoutNotesInput = {
@@ -1305,8 +1039,6 @@ export type TopicUncheckedCreateWithoutNotesInput = {
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutTopicInput
   pdfs?: Prisma.PdfUncheckedCreateNestedManyWithoutTopicInput
   tests?: Prisma.TestUncheckedCreateNestedManyWithoutTopicInput
-  results?: Prisma.TestResultUncheckedCreateNestedManyWithoutTopicInput
-  mcqTests?: Prisma.MCQTestUncheckedCreateNestedManyWithoutTopicInput
 }
 
 export type TopicCreateOrConnectWithoutNotesInput = {
@@ -1341,8 +1073,6 @@ export type TopicUpdateWithoutNotesInput = {
   questions?: Prisma.QuestionUpdateManyWithoutTopicNestedInput
   pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutNotesInput = {
@@ -1361,8 +1091,6 @@ export type TopicUncheckedUpdateWithoutNotesInput = {
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutTopicNestedInput
   pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicCreateManySubjectInput = {
@@ -1395,8 +1123,6 @@ export type TopicUpdateWithoutSubjectInput = {
   pdfs?: Prisma.PdfUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateWithoutSubjectInput = {
@@ -1415,8 +1141,6 @@ export type TopicUncheckedUpdateWithoutSubjectInput = {
   pdfs?: Prisma.PdfUncheckedUpdateManyWithoutTopicNestedInput
   tests?: Prisma.TestUncheckedUpdateManyWithoutTopicNestedInput
   notes?: Prisma.NoteUncheckedUpdateManyWithoutTopicNestedInput
-  results?: Prisma.TestResultUncheckedUpdateManyWithoutTopicNestedInput
-  mcqTests?: Prisma.MCQTestUncheckedUpdateManyWithoutTopicNestedInput
 }
 
 export type TopicUncheckedUpdateManyWithoutSubjectInput = {
@@ -1443,8 +1167,6 @@ export type TopicCountOutputType = {
   pdfs: number
   tests: number
   notes: number
-  results: number
-  mcqTests: number
 }
 
 export type TopicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1452,8 +1174,6 @@ export type TopicCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   pdfs?: boolean | TopicCountOutputTypeCountPdfsArgs
   tests?: boolean | TopicCountOutputTypeCountTestsArgs
   notes?: boolean | TopicCountOutputTypeCountNotesArgs
-  results?: boolean | TopicCountOutputTypeCountResultsArgs
-  mcqTests?: boolean | TopicCountOutputTypeCountMcqTestsArgs
 }
 
 /**
@@ -1494,20 +1214,6 @@ export type TopicCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.NoteWhereInput
 }
 
-/**
- * TopicCountOutputType without action
- */
-export type TopicCountOutputTypeCountResultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TestResultWhereInput
-}
-
-/**
- * TopicCountOutputType without action
- */
-export type TopicCountOutputTypeCountMcqTestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.MCQTestWhereInput
-}
-
 
 export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1527,8 +1233,6 @@ export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pdfs?: boolean | Prisma.Topic$pdfsArgs<ExtArgs>
   tests?: boolean | Prisma.Topic$testsArgs<ExtArgs>
   notes?: boolean | Prisma.Topic$notesArgs<ExtArgs>
-  results?: boolean | Prisma.Topic$resultsArgs<ExtArgs>
-  mcqTests?: boolean | Prisma.Topic$mcqTestsArgs<ExtArgs>
   _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topic"]>
 
@@ -1586,8 +1290,6 @@ export type TopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   pdfs?: boolean | Prisma.Topic$pdfsArgs<ExtArgs>
   tests?: boolean | Prisma.Topic$testsArgs<ExtArgs>
   notes?: boolean | Prisma.Topic$notesArgs<ExtArgs>
-  results?: boolean | Prisma.Topic$resultsArgs<ExtArgs>
-  mcqTests?: boolean | Prisma.Topic$mcqTestsArgs<ExtArgs>
   _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TopicIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1605,8 +1307,6 @@ export type $TopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     pdfs: Prisma.$PdfPayload<ExtArgs>[]
     tests: Prisma.$TestPayload<ExtArgs>[]
     notes: Prisma.$NotePayload<ExtArgs>[]
-    results: Prisma.$TestResultPayload<ExtArgs>[]
-    mcqTests: Prisma.$MCQTestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2020,8 +1720,6 @@ export interface Prisma__TopicClient<T, Null = never, ExtArgs extends runtime.Ty
   pdfs<T extends Prisma.Topic$pdfsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$pdfsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PdfPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tests<T extends Prisma.Topic$testsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$testsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notes<T extends Prisma.Topic$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  results<T extends Prisma.Topic$resultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$resultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TestResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  mcqTests<T extends Prisma.Topic$mcqTestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Topic$mcqTestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MCQTestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2557,54 +2255,6 @@ export type Topic$notesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.NoteScalarFieldEnum | Prisma.NoteScalarFieldEnum[]
-}
-
-/**
- * Topic.results
- */
-export type Topic$resultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TestResult
-   */
-  select?: Prisma.TestResultSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TestResult
-   */
-  omit?: Prisma.TestResultOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TestResultInclude<ExtArgs> | null
-  where?: Prisma.TestResultWhereInput
-  orderBy?: Prisma.TestResultOrderByWithRelationInput | Prisma.TestResultOrderByWithRelationInput[]
-  cursor?: Prisma.TestResultWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TestResultScalarFieldEnum | Prisma.TestResultScalarFieldEnum[]
-}
-
-/**
- * Topic.mcqTests
- */
-export type Topic$mcqTestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the MCQTest
-   */
-  select?: Prisma.MCQTestSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the MCQTest
-   */
-  omit?: Prisma.MCQTestOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MCQTestInclude<ExtArgs> | null
-  where?: Prisma.MCQTestWhereInput
-  orderBy?: Prisma.MCQTestOrderByWithRelationInput | Prisma.MCQTestOrderByWithRelationInput[]
-  cursor?: Prisma.MCQTestWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.MCQTestScalarFieldEnum | Prisma.MCQTestScalarFieldEnum[]
 }
 
 /**

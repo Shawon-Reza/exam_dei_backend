@@ -9,23 +9,34 @@
 * 🟢 You can import this file directly.
 */
 
-export const MCQTestStatus = {
-  DRAFT: 'DRAFT',
-  UPCOMING: 'UPCOMING',
-  LIVE: 'LIVE',
-  COMPLETED: 'COMPLETED'
+export const PointType = {
+  EARNED: 'EARNED',
+  SPENT: 'SPENT',
+  BONUS: 'BONUS',
+  PENALTY: 'PENALTY',
+  REFUND: 'REFUND'
 } as const
 
-export type MCQTestStatus = (typeof MCQTestStatus)[keyof typeof MCQTestStatus]
+export type PointType = (typeof PointType)[keyof typeof PointType]
 
 
-export const PointSource = {
-  TEST: 'TEST',
-  ACTIVITY: 'ACTIVITY',
-  PROFILEUPDATE: 'PROFILEUPDATE'
+export const PointReason = {
+  CORRECT_ANSWER: 'CORRECT_ANSWER',
+  TEST_COMPLETED: 'TEST_COMPLETED',
+  NO_SKIPPED_ANSWERS: 'NO_SKIPPED_ANSWERS',
+  ACCURACY_BONUS: 'ACCURACY_BONUS',
+  DAILY_LOGIN: 'DAILY_LOGIN',
+  DAILY_GOAL_COMPLETED: 'DAILY_GOAL_COMPLETED',
+  NOTE_COMPLETED: 'NOTE_COMPLETED',
+  TOPIC_COMPLETED: 'TOPIC_COMPLETED',
+  SUBJECT_COMPLETED: 'SUBJECT_COMPLETED',
+  STUDY_STREAK: 'STUDY_STREAK',
+  PROFILE_COMPLETED: 'PROFILE_COMPLETED',
+  CHALLENGE_COMPLETED: 'CHALLENGE_COMPLETED',
+  ADMIN_ADJUSTMENT: 'ADMIN_ADJUSTMENT'
 } as const
 
-export type PointSource = (typeof PointSource)[keyof typeof PointSource]
+export type PointReason = (typeof PointReason)[keyof typeof PointReason]
 
 
 export const TestStatus = {
@@ -38,9 +49,9 @@ export type TestStatus = (typeof TestStatus)[keyof typeof TestStatus]
 
 
 export const TestType = {
-  PREDEFINED: 'PREDEFINED',
-  PRACTICE: 'PRACTICE',
-  RANDOM: 'RANDOM'
+  TOPIC: 'TOPIC',
+  SUBJECT: 'SUBJECT',
+  CATEGORY: 'CATEGORY'
 } as const
 
 export type TestType = (typeof TestType)[keyof typeof TestType]

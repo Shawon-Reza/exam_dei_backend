@@ -17,8 +17,8 @@ const getTest = catchAsyncError(async (req: Request, res: Response) => {
     })
 })
 const createTest = catchAsyncError(async (req: Request, res: Response) => {
-
     const result = await testsService.createTest(req.body)
+
     res.status(200).json({
         status: 200,
         success: true,
@@ -40,17 +40,6 @@ const deleteTrestByID = catchAsyncError(async (req: Request, res: Response) => {
     })
 })
 
-const assignQuestionToTest = catchAsyncError(async (req: Request, res: Response) => {
-    console.log("Assign Question to Test Controller Triggered")
-    const result = await testsService.assignQuestionToTest(req.body)
-
-    res.status(200).json({
-        status: 200,
-        success: true,
-        message: "Question assigned to test successfully",
-        data: result
-    })
-})
 
 const updateTest = catchAsyncError(async (req: Request, res: Response) => {
     const result = await testsService.updateTest(req.body, req.params.id as string)
@@ -67,6 +56,6 @@ export const testsController = {
     getTest,
     createTest,
     deleteTrestByID,
-    assignQuestionToTest,
+    
     updateTest
 }

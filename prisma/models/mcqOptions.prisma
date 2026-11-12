@@ -1,29 +1,31 @@
 model Question {
     id String @id @default(cuid())
 
-    question       String  @db.Text @unique
-    banglaQuestion String? @db.Text  @unique
-    questions      Json
+    question       String  @unique @db.Text
+    banglaQuestion String? @unique @db.Text
 
-    options        Json
-    correctAnswer  String
+    options       Json
+    correctAnswer String
 
     explanation       String? @db.Text
     banglaExplanation String? @db.Text
 
     isActive Boolean @default(true)
 
-    subjectId String
+    subjectId String?
     topicId   String?
+    testId    String?
 
-    subject Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
-    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: SetNull)
+    subject Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+    topic   Topic?   @relation(fields: [topicId], references: [id], onDelete: SetNull)
+    test    Test?    @relation(fields: [testId], references: [id], onDelete: Cascade)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    testQuestions TestQuestion[]
-
+    @@unique([subjectId, question])
+    @@unique([topicId, question])
+    @@unique([testId, question])
     @@index([subjectId, isActive])
     @@index([topicId, isActive])
 }

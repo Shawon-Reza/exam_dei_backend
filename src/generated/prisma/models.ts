@@ -8,14 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/MCQTest'
 export type * from './models/Question'
 export type * from './models/Pdf'
-export type * from './models/Point'
+export type * from './models/PointTransaction'
 export type * from './models/Subject'
 export type * from './models/Topic'
 export type * from './models/Test'
-export type * from './models/TestQuestion'
 export type * from './models/TestResult'
 export type * from './models/Note'
 export type * from './models/User'

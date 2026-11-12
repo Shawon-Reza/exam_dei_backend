@@ -3,48 +3,54 @@ import { z } from "zod";
 export const createTestSchema = z.object({
     name: z
         .string()
+        .trim()
         .min(1, "Test name is required"),
 
     slug: z
         .string()
+        .trim()
         .min(1, "Slug is required"),
 
     description: z
         .string()
-        .optional(),
+        .optional()
+        .nullable(),
 
     duration: z
         .number()
         .int()
-        .positive()
+        .positive("Duration must be greater than 0")
         .optional(),
 
     totalQuestions: z
         .number()
         .int()
-        .positive()
+        .positive("Total questions must be greater than 0")
         .optional(),
 
     isActive: z
         .boolean()
         .optional(),
 
+    status: z
+        .enum(["PRACTICE", "LIVE", "UPCOMING"])
+        .optional(),
+
+    type: z
+        .enum(["TOPIC", "SUBJECT", "GENERAL"])
+        .optional(),
+
     topicId: z
         .string()
-        .min(1, "Topic ID is required")
-        .optional()
-        ,
+        .min(1, "Topic ID cannot be empty")
+        .nullable()
+        .optional(),
 
     subjectId: z
         .string()
-        .min(1, "Subject ID is required").optional(),
-    status: z
-        .enum(["PRACTICE", "LIVE", "UPCOMING"], "Status must be one of 'PRACTICE', 'LIVE', or 'UPCOMING'")
-        .optional()
-    
+        .min(1, "Subject ID cannot be empty")
+        .nullable()
+        .optional(),
 });
-
-// "subjectId":"cmvo4rpz20000y4catsbgb56i",
-//   "status": "PRACTICE"
 
 export type CreateTestInput = z.infer<typeof createTestSchema>;

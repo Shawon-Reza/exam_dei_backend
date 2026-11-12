@@ -20,7 +20,6 @@ model Subject {
   pdfs       Pdf[]
   notes      Note[]
   tests      Test[]
-  mcqTests  MCQTest[]
   
 }
 
@@ -46,11 +45,10 @@ model Topic {
   subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Restrict)
 
   questions   Question[]
+
   pdfs        Pdf[]
   tests       Test[]
   notes       Note[]
-  results TestResult[]
-  mcqTests  MCQTest[]
   
 
   @@unique([subjectId, slug])

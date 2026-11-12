@@ -51,14 +51,12 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  MCQTest: 'MCQTest',
   Question: 'Question',
   Pdf: 'Pdf',
-  Point: 'Point',
+  PointTransaction: 'PointTransaction',
   Subject: 'Subject',
   Topic: 'Topic',
   Test: 'Test',
-  TestQuestion: 'TestQuestion',
   TestResult: 'TestResult',
   Note: 'Note',
   User: 'User',
@@ -83,32 +81,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const MCQTestScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  banglaName: 'banglaName',
-  slug: 'slug',
-  description: 'description',
-  duration: 'duration',
-  totalQuestions: 'totalQuestions',
-  totalMarks: 'totalMarks',
-  passMarks: 'passMarks',
-  negativeMarking: 'negativeMarking',
-  negativeMark: 'negativeMark',
-  questions: 'questions',
-  status: 'status',
-  isActive: 'isActive',
-  startAt: 'startAt',
-  endAt: 'endAt',
-  subjectId: 'subjectId',
-  topicId: 'topicId',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type MCQTestScalarFieldEnum = (typeof MCQTestScalarFieldEnum)[keyof typeof MCQTestScalarFieldEnum]
-
-
 export const QuestionScalarFieldEnum = {
   id: 'id',
   question: 'question',
@@ -120,6 +92,7 @@ export const QuestionScalarFieldEnum = {
   isActive: 'isActive',
   subjectId: 'subjectId',
   topicId: 'topicId',
+  testId: 'testId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -143,17 +116,17 @@ export const PdfScalarFieldEnum = {
 export type PdfScalarFieldEnum = (typeof PdfScalarFieldEnum)[keyof typeof PdfScalarFieldEnum]
 
 
-export const PointScalarFieldEnum = {
+export const PointTransactionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   points: 'points',
+  type: 'type',
+  reason: 'reason',
   description: 'description',
-  source: 'source',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  createdAt: 'createdAt'
 } as const
 
-export type PointScalarFieldEnum = (typeof PointScalarFieldEnum)[keyof typeof PointScalarFieldEnum]
+export type PointTransactionScalarFieldEnum = (typeof PointTransactionScalarFieldEnum)[keyof typeof PointTransactionScalarFieldEnum]
 
 
 export const SubjectScalarFieldEnum = {
@@ -199,6 +172,7 @@ export const TestScalarFieldEnum = {
   totalQuestions: 'totalQuestions',
   isActive: 'isActive',
   status: 'status',
+  type: 'type',
   topicId: 'topicId',
   subjectId: 'subjectId',
   createdAt: 'createdAt',
@@ -208,29 +182,15 @@ export const TestScalarFieldEnum = {
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
-export const TestQuestionScalarFieldEnum = {
-  id: 'id',
-  testId: 'testId',
-  questionId: 'questionId'
-} as const
-
-export type TestQuestionScalarFieldEnum = (typeof TestQuestionScalarFieldEnum)[keyof typeof TestQuestionScalarFieldEnum]
-
-
 export const TestResultScalarFieldEnum = {
   id: 'id',
   testId: 'testId',
-  mcqTestId: 'mcqTestId',
   userId: 'userId',
-  topicId: 'topicId',
-  score: 'score',
-  negativeScore: 'negativeScore',
   totalQuestions: 'totalQuestions',
   correctAnswers: 'correctAnswers',
   incorrectAnswers: 'incorrectAnswers',
   skippedAnswers: 'skippedAnswers',
   accuracy: 'accuracy',
-  testType: 'testType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

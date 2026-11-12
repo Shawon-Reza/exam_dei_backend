@@ -18,11 +18,6 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model MCQTest
- * 
- */
-export type MCQTest = Prisma.MCQTestModel
-/**
  * Model Question
  * 
  */
@@ -33,10 +28,10 @@ export type Question = Prisma.QuestionModel
  */
 export type Pdf = Prisma.PdfModel
 /**
- * Model Point
+ * Model PointTransaction
  * 
  */
-export type Point = Prisma.PointModel
+export type PointTransaction = Prisma.PointTransactionModel
 /**
  * Model Subject
  * 
@@ -52,11 +47,6 @@ export type Topic = Prisma.TopicModel
  * 
  */
 export type Test = Prisma.TestModel
-/**
- * Model TestQuestion
- * 
- */
-export type TestQuestion = Prisma.TestQuestionModel
 /**
  * Model TestResult
  * 

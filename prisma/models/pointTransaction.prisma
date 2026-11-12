@@ -1,0 +1,41 @@
+enum PointType {
+    EARNED
+    SPENT
+    BONUS
+    PENALTY
+    REFUND
+}
+
+enum PointReason {
+    CORRECT_ANSWER
+    TEST_COMPLETED
+    NO_SKIPPED_ANSWERS
+    ACCURACY_BONUS
+    DAILY_LOGIN
+    DAILY_GOAL_COMPLETED
+    NOTE_COMPLETED
+    TOPIC_COMPLETED
+    SUBJECT_COMPLETED
+    STUDY_STREAK
+    PROFILE_COMPLETED
+    CHALLENGE_COMPLETED
+    ADMIN_ADJUSTMENT
+}
+
+model PointTransaction {
+    id String @id @default(cuid())
+
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    points Int
+    type   PointType
+    reason PointReason
+
+    description String?
+
+    createdAt DateTime @default(now())
+
+    @@index([userId, createdAt])
+    @@index([userId, reason])
+}

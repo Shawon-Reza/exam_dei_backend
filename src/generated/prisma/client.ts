@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more MCQTests
- * const mCQTests = await prisma.mCQTest.findMany()
+ * // Fetch zero or more Questions
+ * const questions = await prisma.question.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,11 +41,6 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
-/**
- * Model MCQTest
- * 
- */
-export type MCQTest = Prisma.MCQTestModel
 /**
  * Model Question
  * 
@@ -57,10 +52,10 @@ export type Question = Prisma.QuestionModel
  */
 export type Pdf = Prisma.PdfModel
 /**
- * Model Point
+ * Model PointTransaction
  * 
  */
-export type Point = Prisma.PointModel
+export type PointTransaction = Prisma.PointTransactionModel
 /**
  * Model Subject
  * 
@@ -76,11 +71,6 @@ export type Topic = Prisma.TopicModel
  * 
  */
 export type Test = Prisma.TestModel
-/**
- * Model TestQuestion
- * 
- */
-export type TestQuestion = Prisma.TestQuestionModel
 /**
  * Model TestResult
  * 

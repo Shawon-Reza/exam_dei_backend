@@ -1,84 +1,69 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { prisma } from "../../lib/prisma";
+import { Prisma } from "../../generated/prisma/client";
 import { CreateQuestionsInput } from "./question.types";
-
 
 const getQuestions = async (query: any) => {
     const {
         topicID,
         subjectID,
-        limit=100,
-        difficulty,
+        limit = 100,
+        page = 1,
         search,
-        testID
+        testID,
     } = query;
 
+    const take = Math.max(1, Number(limit) || 100);
+    const currentPage = Math.max(1, Number(page) || 1);
+    const skip = (currentPage - 1) * take;
 
+    const where: Prisma.QuestionWhereInput = {
+        isActive: true,
+    };
 
-    if (!subjectID && !topicID && !testID) {
-        throw new Error("Either subjectID or topicID or testID must be provided");
+    if (topicID) {
+        where.topicId = topicID;
+    }
+    if (subjectID) {
+        where.subjectId = subjectID;
+    }
+    if (testID) {
+        where.testId = testID;
     }
 
-    const minDifficulty =
-        difficulty !== undefined && difficulty !== ""
-            ? parseInt(difficulty, 10)
-            : null;
+    if (search?.trim()) {
+        where.OR = [
+            { question: { contains: search.trim(), mode: "insensitive" } },
+            { banglaQuestion: { contains: search.trim(), mode: "insensitive" } },
+            { explanation: { contains: search.trim(), mode: "insensitive" } },
+            { banglaExplanation: { contains: search.trim(), mode: "insensitive" } },
+        ];
+    }
 
-    const subjectIdParam: string | null = subjectID || null;
-    const topicIdParam: string | null = topicID || null;
-    const testIdParam: string | null = testID || null;
-    const searchParam: string | null = search || null;
+    const [questions, totalCount] = await Promise.all([
+        prisma.question.findMany({
+            where,
+            take,
+            skip,
+            orderBy: {
+                createdAt: "desc",
+            },
+        }),
+        prisma.question.count({ where }),
+    ]);
 
-    console.log("From service getQuestions", {
-        subjectIdParam,
-        topicIdParam,
-        searchParam,
-        minDifficulty,
-        limit,
-        testIdParam
-    });
-
-    const questions = await prisma.$queryRaw`
-        SELECT *
-        FROM "Question"
-        WHERE
-            (
-                CAST(${subjectIdParam} AS TEXT) IS NULL
-                OR "subjectId" = CAST(${subjectIdParam} AS TEXT)
-            )
-            AND (
-                CAST(${topicIdParam} AS TEXT) IS NULL
-                OR "topicId" = CAST(${topicIdParam} AS TEXT)
-            )
-            AND (
-                CAST(${testIdParam} AS TEXT) IS NULL
-                OR EXISTS (
-                    SELECT 1
-                    FROM "TestQuestion" AS "testQuestion"
-                    WHERE
-                        "testQuestion"."questionId" = "Question"."id"
-                        AND "testQuestion"."testId" = CAST(${testIdParam} AS TEXT)
-                )
-            )
-            AND (
-                CAST(${searchParam} AS TEXT) IS NULL
-                OR "question" ILIKE CONCAT(
-                    '%',
-                    CAST(${searchParam} AS TEXT),
-                    '%'
-                )
-            )
-            AND (
-                CAST(${minDifficulty} AS INTEGER) IS NULL
-                OR "difficulty" >= CAST(${minDifficulty} AS INTEGER)
-            )
-            AND "isActive" = TRUE
-        ORDER BY RANDOM()
-        LIMIT ${limit}
-    `;
-
-    return questions;
+    return {
+        questions,
+        pagination: {
+            totalCount,
+            totalPages: Math.ceil(totalCount / take),
+            currentPage,
+            limit: take,
+            hasNextPage: currentPage * take < totalCount,
+            hasPreviousPage: currentPage > 1,
+        },
+    };
 };
 
 
@@ -118,186 +103,128 @@ const createQuestion = async (payload: CreateQuestionsInput) => {
     return result;
 }
 
+type AssignQuestionToTestPayload = {
+    testID: string;
+    questions: {
+        question: string;
+        banglaQuestion?: string | null;
+        options: Prisma.InputJsonValue;
+        correctAnswer: string;
+        explanation?: string | null;
+        banglaExplanation?: string | null;
+        isActive?: boolean;
+    }[];
+};
 
+const assign_question_to_test = async (payload: AssignQuestionToTestPayload) => {
+    console.log("From service assign_question_to_test", payload);
 
-
-const updateQuestionById = async (id: string, payload: any) => {
-
-    console.log("req.body", payload, id)
-
-    const result = await prisma.question.update({
-        where: {
-            id
-        },
-        data: payload
-    });
-
-
-    return result;
-}
-
-
-const deleteQuestionById = async (id: string) => {
-    const result = await prisma.question.delete({
-        where: {
-            id
-        }
-    });
-    return result;
-}
-
-const assign_to_test = async (payload: any) => {
-    const { testID, questionIds } = payload;
+    const { testID, questions } = payload;
 
     if (!testID) {
         throw new Error("Test ID is required");
     }
-
-    if (!Array.isArray(questionIds) || questionIds.length === 0) {
-        throw new Error("Question IDs are required");
+    if (!questions || questions.length === 0) {
+        throw new Error("Questions are required");
     }
 
-    return prisma.$transaction(async (transaction) => {
-        const test = await transaction.test.findUnique({
-            where: {
-                id: testID
-            },
-            select: {
-                totalQuestions: true,
-                testQuestions: {
-                    select: {
-                        questionId: true
-                    }
-                }
-            }
-        });
+    const test = await prisma.test.findUnique({
+        where: { id: testID },
+        select: { id: true },
+    });
 
-        if (!test) {
-            throw new Error("Test not found");
-        }
+    if (!test) {
+        throw new Error("Test not found");
+    }
 
-        const existingQuestionIds = new Set(
-            test.testQuestions.map((testQuestion) => testQuestion.questionId)
-        );
-        const uniqueQuestionIds: string[] = [];
-        const skippedQuestions: {
-            questionId: string;
-            reason: "duplicate" | "already_assigned" | "question_not_found" | "test_limit_reached";
-        }[] = [];
-        const receivedQuestionIds = new Set<string>();
-
-        for (const questionId of questionIds) {
-            if (typeof questionId !== "string" || questionId.length === 0) {
-                skippedQuestions.push({
-                    questionId: String(questionId),
-                    reason: "question_not_found"
-                });
-            } else if (receivedQuestionIds.has(questionId)) {
-                skippedQuestions.push({
-                    questionId,
-                    reason: "duplicate"
-                });
-            } else if (existingQuestionIds.has(questionId)) {
-                skippedQuestions.push({
-                    questionId,
-                    reason: "already_assigned"
-                });
-            } else {
-                receivedQuestionIds.add(questionId);
-                uniqueQuestionIds.push(questionId);
-            }
-        }
-
-        const questions = await transaction.question.findMany({
-            where: {
-                id: {
-                    in: uniqueQuestionIds
-                }
-            },
-            select: {
-                id: true
-            }
-        });
-        const questionIdsInDatabase = new Set(questions.map((question) => question.id));
-
-        const availableQuestionIds = uniqueQuestionIds.filter((questionId) => {
-            if (!questionIdsInDatabase.has(questionId)) {
-                skippedQuestions.push({
-                    questionId,
-                    reason: "question_not_found"
-                });
-                return false;
-            }
-            return true;
-        });
-
-        const remainingCapacity = Math.max(
-            0,
-            test.totalQuestions - test.testQuestions.length
-        );
-        const questionIdsToAdd = availableQuestionIds.slice(0, remainingCapacity);
-
-        for (const questionId of availableQuestionIds.slice(remainingCapacity)) {
-            skippedQuestions.push({
-                questionId,
-                reason: "test_limit_reached"
-            });
-        }
-
-        await transaction.testQuestion.createMany({
-            data: questionIdsToAdd.map((questionId) => ({
-                testId: testID,
-                questionId
-            }))
-        });
-
-        return {
+    return prisma.question.createMany({
+        data: questions.map((item) => ({
             testId: testID,
-            totalQuestions: test.totalQuestions,
-            previouslyAssignedCount: test.testQuestions.length,
-            addedCount: questionIdsToAdd.length,
-            addedQuestionIds: questionIdsToAdd,
-            skippedCount: skippedQuestions.length,
-            skippedQuestions,
-            remainingCapacity: remainingCapacity - questionIdsToAdd.length
-        };
+            question: item.question,
+            banglaQuestion: item.banglaQuestion,
+            options: item.options,
+            correctAnswer: item.correctAnswer,
+            explanation: item.explanation,
+            banglaExplanation: item.banglaExplanation,
+            isActive: item.isActive ?? true,
+        })),
+        skipDuplicates: true,
     });
 }
 
-const get_question_assign_to_test = async (query: any) => {
-    const { testID } = query;
+const test_questions = async (query: any) => {
+    const { testId, limit: limitParam = 200, page: pageParam = 1, search } = query;
 
-    const result = await prisma.testQuestion.findMany({
-        where: {
-            testId: testID
-        },
-        include: {
-            question: true
+    if (!testId) {
+        throw new Error("Test ID is required");
+    }
+
+    let where = {}
+
+    if (testId) {
+        where = { testId: testId }
+    }
+    if (search) {
+        where = {
+            ...where,
+            OR: [
+                { question: { contains: search, mode: 'insensitive' } },
+                { banglaQuestion: { contains: search, mode: 'insensitive' } },
+                { explanation: { contains: search, mode: 'insensitive' } },
+                { banglaExplanation: { contains: search, mode: 'insensitive' } },
+            ]
         }
-    });
-    return result;
-}
+    }
 
-const delete_question_assign_to_test = async (query: any) => {
-    const { testID, questionID } = query;
-    console.log("From service delete_question_assign_to_test", testID, questionID);
+    const limit = Number.parseInt(String(limitParam), 10);
+    const page = Number.parseInt(String(pageParam), 10);
 
-    const result = await prisma.testQuestion.deleteMany({
-        where: {
-            testId: testID,
-            questionId: questionID
-        }
+    if (!Number.isInteger(limit) || limit < 1) {
+        throw new Error("Limit must be a positive integer");
+    }
+
+    if (!Number.isInteger(page) || page < 1) {
+        throw new Error("Page must be a positive integer");
+    }
+
+    const questions = await prisma.question.findMany({
+        where,
+        take: limit,
+        skip: (page - 1) * limit,
     });
-    return result;
-}
+    const count = await prisma.question.count({
+        where: { testId: testId },
+    });
+    const totalPage = Math.ceil(count / limit);
+
+    if (questions.length === 0) {
+        throw new Error("No questions found for the specified test ID");
+    }
+    return { questions, count, page, totalPage };
+};
+
+const questionDeleteById = async (id: string) => {
+    return await prisma.question.delete({
+        where: { id },
+    });
+
+};
+
+const questionUpdateById = async (id: string, payload: any) => {
+    return await prisma.question.update({
+        where: { id },
+        data: payload,
+    });
+};
+
 
 export const questionService = {
     getQuestions,
+    test_questions,
+    questionDeleteById,
+    questionUpdateById,
     createQuestion,
-    updateQuestionById,
-    deleteQuestionById,
-    assign_to_test,
-    get_question_assign_to_test,
-    delete_question_assign_to_test
+    assign_question_to_test
+
 
 }

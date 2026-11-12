@@ -8,17 +8,14 @@ import { ROLE } from "../../generated/prisma/enums";
 export const questionRouter = Router();
 
 questionRouter.get("/", questionController.getQuestions);
+questionRouter.get("/test_questions", questionController.test_questions);
 
-questionRouter.post("/",authMiddleware([ROLE.ADMIN]), zodValidationFN(createQuestionsSchema), questionController.createQuestion);
+questionRouter.post("/", authMiddleware([ROLE.ADMIN]), zodValidationFN(createQuestionsSchema), questionController.createQuestion);
+
+questionRouter.post("/assign_question_to_test", questionController.assign_question_to_test);
+
+questionRouter.delete("/:id", questionController.questionDeleteById);
+questionRouter.put("/:id", questionController.questionUpdateById);
 
 
 
-questionRouter.put("/:id",authMiddleware([ROLE.ADMIN]), questionController.updateQuestionById);
-
-questionRouter.post("/assign_to_test",authMiddleware([ROLE.ADMIN]), questionController.assign_to_test);
-
-questionRouter.get("/assign_to_test",authMiddleware([ROLE.ADMIN]), questionController.get_question_assign_to_test);
-
-questionRouter.delete("/assign_to_test",authMiddleware([ROLE.ADMIN]), questionController.delete_question_assign_to_test);
-
-questionRouter.delete("/:id",authMiddleware([ROLE.ADMIN]), questionController.deleteQuestionById);

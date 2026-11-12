@@ -4,8 +4,15 @@ enum TestStatus {
     LIVE
 }
 
+enum TestType {
+    TOPIC
+    SUBJECT
+    CATEGORY
+}
+
 model Test {
-    id          String  @id @default(cuid())
+    id String @id @default(cuid())
+
     name        String
     slug        String  @unique
     description String?
@@ -15,38 +22,19 @@ model Test {
 
     isActive Boolean    @default(true)
     status   TestStatus @default(PRACTICE)
+    type     TestType   @default(TOPIC)
 
-    topicId String?
-    topic   Topic?  @relation(fields: [topicId], references: [id], onDelete: Cascade)
-
+    topicId   String?
     subjectId String?
+    
+    topic     Topic?   @relation(fields: [topicId], references: [id], onDelete: Cascade)
     subject   Subject? @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 
-    testQuestions TestQuestion[]
+    testQuestions Question[]
     testResults   TestResult[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-}
-
-model TestQuestion {
-    id String @id @default(cuid())
-    // marks Float @default(1)
-
-    testId String
-    test   Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
-
-    questionId String
-    question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-    @@unique([testId, questionId])
-    @@index([questionId])
-}
-
-enum TestType {
-    PREDEFINED
-    PRACTICE
-    RANDOM
 }
 
 model TestResult {
@@ -55,24 +43,15 @@ model TestResult {
     testId String?
     test   Test?   @relation(fields: [testId], references: [id], onDelete: Cascade)
 
-    mcqTestId String
-    userId    String
-    user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    topicId String
-    topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
 
-    score         Float @default(0)
-    negativeScore Float @default(0)
-
-    totalQuestions   Int      @default(0)
-    correctAnswers   Int      @default(0)
-    incorrectAnswers Int      @default(0)   
-    skippedAnswers   Int      @default(0)
-    accuracy         Float    @default(0)
-    testType         TestType @default(PREDEFINED)
-
-    mcqTests MCQTest @relation(fields: [mcqTestId], references: [id], onDelete: Cascade)
+    totalQuestions   Int   @default(0)
+    correctAnswers   Int   @default(0)
+    incorrectAnswers Int   @default(0)
+    skippedAnswers   Int   @default(0)
+    accuracy         Float @default(0)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
